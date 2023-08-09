@@ -1,0 +1,24 @@
+@import "./_variables.scss";
+@import "./_forms.scss";
+@import "./_utils.scss";
+@import "./_themes.scss";
+@import "./_global.scss";
+@import "./_grid.scss";
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+// NOTE custom styles go here
+
+.vh-100{ min-height: 100vh; }
+.bg-main{ background-color: $main1;}
+.bg-acct2{ background-color: $acct2;}
+.content-gateway{
+    min-height: 100vh;
+    width: calc(100% - $nav-width);
+    display: flex;
+    flex-direction: column;
+    margin-left: $nav-width;
+}
+.h-0{
+    max-height: 0;
+    overflow: hidden;
+}
