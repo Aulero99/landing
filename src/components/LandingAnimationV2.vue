@@ -1,6 +1,5 @@
 <template>
   <div class="layer-one">
-    <div class="test"></div>
     <div class="one"></div>
     <div class="two"></div>
     <div class="three"></div>
@@ -117,6 +116,7 @@ h1{
   height: 100%;
   aspect-ratio: 12/9;
   clip-path: polygon(0% 100%, 50% 0%, 50% 0%, 100% 100%);
+  user-select: none;
 }
 .center{
   position: absolute;
@@ -142,6 +142,7 @@ h1{
   margin-left: auto;
 }
 .layer-one{
+  user-select: none;
   height: 100%;
   width: 100%;
   position: absolute;
@@ -213,6 +214,7 @@ h1{
     }
 }
 .layer-two{
+  user-select: none;
   z-index: 10;
   height: 100%;
   position: absolute;
@@ -241,6 +243,7 @@ h1{
       }
 }
 .layer-three{
+  user-select: none;
   z-index: 15;
   height: 100%;
   position: absolute;
@@ -259,6 +262,7 @@ h1{
     }
 }
 .layer-four{
+  user-select: none;
   z-index: 20;
   height: 100%;
   position: absolute;
