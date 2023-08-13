@@ -30,6 +30,7 @@ import { ref } from 'vue'
 @import "../assets/scss/main.scss";
 .left-nav-container{
     background-color: $bg;
+    border-radius: 0.15rem;
     position: fixed;
     z-index: 1000;
     width: calc($nav-width * 2);

@@ -4,7 +4,7 @@
     <div class="layer-1"
     >
         <div class="one"
-        :style="{'transform':'translateY(' + (bgBtm * 5) + '%)'}"
+        :style="{'transform':'translateY(' + (bgBtm * -5) + '%)'}"
         >
             <div class="triangle outline dark"></div>
         </div>
