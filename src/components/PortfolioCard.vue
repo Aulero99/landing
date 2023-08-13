@@ -23,8 +23,8 @@
         </div>
 
         <div class="links flex-row justify-around align-end fill-x">
-            <LinkButton v-if="repo.github" :link="repo.github" :ident="repo.name" icon="src/assets/img/icons/github.png"/>
-            <LinkButton v-if="repo.url" :link="repo.url" :ident="repo.name" cta="http://"/>
+            <LinkButton v-if="repo.github" :ident="repo.name" icon="src/assets/img/icons/github.png" :link="repo.github" />
+            <LinkButton v-if="repo.url" :ident="repo.name" cta="http://" :link="repo.url" />
         </div>
       </div>
     </div>
@@ -56,7 +56,11 @@ import { scrollService } from '../services/ScrollService'
         window.addEventListener('scroll', activateScrollEvents);
       })
       return {
-        bgBtm
+        bgBtm,
+        openInNewTab(url) {
+          const win = window.open(url, '_blank');
+          win?.focus();
+        }
       }
     }
   }

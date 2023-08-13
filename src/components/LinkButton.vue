@@ -1,18 +1,25 @@
 <template>
-    <div class="button elevation-3 flex-col justify-center align-center fill mx-2" type="button" :title="'link to ' + ident">
-        <a :href="link" target="blank" :title="ident" class="fill p-1 flex-col justify-center align-center">
-            <img :src="icon" alt="ident" v-if="!cta"> 
-            {{ cta }}
+    <button :title="ident">
+        <a :href="link" target="blank" class="fill">
+            <div class="background">
+                <svg x="0px" y="0px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" role="img">
+                    <polygon class="triangle" points="100,100 0,100 0,0 "/>
+                </svg>
+            </div>
+            <div class="foreground">
+                <img :src="icon" :alt="ident" v-if="!cta"> 
+                {{ cta }}
+            </div>
         </a>
-    </div>
-  
+    </button>
+    <!-- NOTE The width must be equal to or greater than the height of the button -->
 </template>
   
 <script>
   export default {
     props:{
         link: {type: String, required: true},
-        ident: {type: String, required: true},
+        ident: {type: String, Required: true},
         icon: {type: String},
         cta: {type: String}
     },
@@ -27,50 +34,84 @@
 <style lang="scss" scoped>
 @import "../assets/scss/main.scss";
 
+// STUB Change these variables to set the parameters of the element 
+$button-color: $main1;
+$text-color: black;
+$transition1: 800ms ease-in-out;
+$transition2: 50ms linear;
+
 img{ height: 100%; }
-.button{
+.triangle{ fill:$button-color; }
+.background{
+    position: absolute;
+    background-color: white;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    left: 0;
+    bottom: 0;
+    z-index: -2;
+    height: 100%;
+    width: 100%;
+    svg{
+            height: 50%;
+            aspect-ratio: 1/1;
+        }
+}
+.foreground{
     position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+button{
+    display: block;
+    position: relative;
+    padding: 0.5rem;
+    border: 0;
+    background: transparent;
+    z-index: 2;
+    border-radius: 0.15rem;
+    overflow: hidden;
+    width: 100%;
     max-width: 10rem;
+    aspect-ratio: 2/1;
     font-size: clamp(1rem, 3vw, 1.75rem);
     font-weight: 600;
-    border-radius: 0.2rem;
-    z-index: 100;
-    overflow: hidden;
-    border: 0.01rem solid $main2;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    cursor: pointer;
         a{
-            position: relative;
-            color: $txt;
+            color: $text-color;
+            text-decoration: none;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+        &::after{
+            content: "";
+            z-index: -1;
+            position: absolute;
+            right: 100%;
+            top: 100%;
+            width: 600%;
+            aspect-ratio: 1/1;
+            background-color: $button-color;
+            transition: right $transition1, background-color $transition2;
+            transform: rotate(45deg);
+            transform-origin: top right;
+        }
+        &:hover{
             &::after{
-                content: "";
-                position: absolute;
-                overflow: hidden;
-                width: 5rem;
-                height: 5rem;
-                bottom: 0;
-                left: -5rem;
-                background-color: $main1;
-                z-index: -2;
-                transform: rotate(45deg);
-                transform-origin: bottom left;
-            }
-            &::before{
-                content: "";
-                transition: all $trans2 ease-in-out;
-                // background-color: $main1;
-                position: absolute;
-                z-index: -1;
-                top: 0;
-                left: 0;
-                bottom: 0;
                 right: -100%;
-                border-right: 10rem solid transparent;
-                border-bottom: 10rem solid $main1;
-                transform: translateX(-100%);
             }
-            &:hover{
-                &::before{
-                    transform: translateX(0);
-                }
+        }
+        &:active{
+            &::after{
+                background-color: darken($button-color, 10%);
             }
         }
 }

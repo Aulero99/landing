@@ -38,7 +38,7 @@
                 placeholder="message"
                 maxlength="3000" 
                 minlength="5"
-                v-model="editable.body"
+                v-model="editable.message"
                 required
                 ></textarea>
                 <label for="bodyContact">Message</label>
@@ -57,7 +57,11 @@ import { logger } from '../utils/Logger'
 import { contactService } from '../services/ContactService'
   export default {
     setup() {
-        const editable = ref({})
+        const editable = ref({
+            name:'',
+            email:'',
+            message:''
+        })
       return {
         editable,
         submitForm(){

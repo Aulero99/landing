@@ -1,10 +1,11 @@
 <template>
   <section class="row" id="landing">
-      <div class="col-12 bg-main">
+      <div class="col-12 bg-main landing">
         <!-- <div class="content-gateway py-5 px-3 justify-end">
           <LandingCard/>
         </div> -->
-        <LandingAnimation/>
+        <!-- <LandingAnimation/> -->
+        <LandingAnimationV2/>
       </div>
   </section>
 </template>
@@ -20,4 +21,9 @@
 </script>
 
 <style lang="scss" scoped>
+.landing{
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
 </style>
