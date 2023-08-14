@@ -54,17 +54,4 @@ export default {
 @import "./assets/scss/main.scss";
 // @import "https://cdn.jsdelivr.net/gh/Aulero99/small_grid@main/min/min_grid.css";
 
-nav{
-  width: $nav-width;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 1000;
-}
-
-main {
-  margin-right: $nav-width;
-}
-
 </style>

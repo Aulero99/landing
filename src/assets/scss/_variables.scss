@@ -65,7 +65,11 @@ $trans3: 500ms;
 $trans4: 700ms;
 
 $nav-width: 5rem;
-$navpad: 3vh;
+$navpad: var(--navpad);
 
 // NOTE these are the rules to generate the variations on my color variables
+
+:root{
+    --navpad: 3vh;
+}
 

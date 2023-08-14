@@ -99,17 +99,6 @@ import { logger } from '../utils/Logger'
 
 <style lang="scss" scoped>
 @import "../assets/scss/main.scss";
-
-.navbar-content{
-    position: relative;
-    transform: rotate(90deg);
-    transform-origin: left top;
-    margin-left: $nav-width;
-    width: 100vh;
-    color: $main2;
-    height: $nav-width;
-    padding: 0 $navpad;
-}
 .scroll-element{
     position: absolute;
     left: $navpad;

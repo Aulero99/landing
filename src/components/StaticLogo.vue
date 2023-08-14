@@ -66,5 +66,10 @@ import { ref } from 'vue'
             }
         }
 }
+@media screen and ($minmax: $lg){
+    .left-nav-container{
+        display: none;
+    }
+}
 
 </style>
