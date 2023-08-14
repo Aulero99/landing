@@ -1,33 +1,89 @@
 <template>
-    <div class="left-nav-container flex-row justify-end"
+    <div class="left-nav-container flex-row justify-end justify-lg-start"
     @mouseenter="setActive()"
-    @mouseleave="setInactive()">
+    @mouseleave="setInactive()"
+    @click="openNav()"
+    :class="{'nav-open':navOpen}">
         <div class="logo-container elevation-3 flex-col justify-center"
         :class="{active:active}">
             <img src="../assets/img/logo.svg" alt="Logo" class="elevation" title="Contact Me">
         </div>
     </div>
+
+    <div class="nav-cover"
+    :class="{'nav-open':navOpen, 'nav-closed':!navOpen}"
+    @click="closeNav()">
+
+    </div>
 </template>
   
 <script>
-import { ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+import { AppState } from '../AppState'
+import { logger } from '../utils/Logger'
   export default {
-    props:{
-
-    },
     setup() {
-    const active = ref(false)
-      return {
-        active,
-        setActive(){ active.value = true },
-        setInactive(){ active.value = false }
-      }
+        const active = ref(false)
+        function closeNav(){ 
+            AppState.navOpen = false
+            active.value = false 
+        }
+        
+        onMounted(()=>{
+            window.addEventListener('resize', closeNav)
+        })
+
+        return {
+            active,
+            navOpen: computed(()=> AppState.navOpen),
+            setActive(){ 
+                if(screen.width >= 992){
+                    active.value = true 
+                }
+            },
+            setInactive(){ 
+                if(screen.width >= 992){
+                    active.value = false
+                } 
+            },
+            openNav(){
+                if(screen.width < 992){
+                    AppState.navOpen = true
+                    active.value = true 
+                }
+            },
+            closeNav(){
+                if(screen.width < 992){
+                    AppState.navOpen = false
+                    active.value = false 
+                }
+            }
+        }
     }
   }
 </script>
 
 <style lang="scss" scoped>
 @import "../assets/scss/main.scss";
+.nav-cover{
+    display: block;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 0;
+    background-color: rgba($color: #000000, $alpha: 0.7);
+    z-index: 999;
+        &.nav-open{
+            transition: opacity $trans1 ease-in-out;
+            height: 100vh;
+            opacity: 1;
+        }
+        &.nav-closed{
+            transition: opacity $trans1 ease-in-out, height 1ms linear $trans1;
+        }
+}
 .left-nav-container{
     background-color: $bg;
     border-radius: 0.15rem;
@@ -37,6 +93,9 @@ import { ref } from 'vue'
     top: $navpad;
     left: calc($nav-width * -1);
     transition: all $trans1 ease-in-out;
+        &.nav-open{
+            margin-right: $nav-width;
+        }
         .logo-container{
             padding: 0.4rem 0.4rem 0.4rem 0;
             position: relative;
@@ -68,7 +127,24 @@ import { ref } from 'vue'
 }
 @media screen and ($minmax: $lg){
     .left-nav-container{
-        display: none;
+        right: calc($nav-width * -1);
+        left: auto;
+            .logo-container{
+                padding: 0.4rem 0rem 0.4rem 0.4rem;
+                &::after{
+                    left: auto;
+                    right: 0;
+                }
+                img{
+                    max-width: 100%;
+                    margin: 0.4rem;
+                }
+                &.active{
+                    &::after{
+                        width: calc(100% - 0.4rem);
+                    }
+                }
+            }
     }
 }
 

@@ -4,7 +4,9 @@ nav{
     position: fixed;
     top: 0;
     right: 0;
-    z-index: 1000;
+    z-index: 1001;
+    background-color: $bg;
+    transition: margin $trans1 ease-in-out;
         .navbar-content{
             position: relative;
             transform: rotate(90deg);
@@ -31,20 +33,10 @@ margin-right: $nav-width;
 
 
 @media screen and ($minmax: $lg){
-    :root{
-        --navpad: 1.2vw !important;
-    }
     nav{
-        height: $nav-width;
-        width: 100vw;
-        top: 0;
-        right: 0;
-        background-color: $bg;
-            .navbar-content{
-                transform: unset;
-                width: 100vw;
-                margin: 0;
-                padding: 0 $navpad;
+        right: calc(-1 * $nav-width);
+            &.nav-open{
+                margin-right: $nav-width;
             }
     }
     main {

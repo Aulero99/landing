@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <section class="row flex-row">
-      <nav class="elevation-3">
+      <nav class="elevation-3"
+      :class="{'nav-open':navOpen}">
         <Navbar/>
       </nav>
       <StaticLogo/>
@@ -25,12 +26,19 @@
 import { computed, onMounted } from 'vue';
 import { AppState } from './AppState';
 import { scrollService } from './services/ScrollService';
+import { logger } from './utils/Logger';
 
 export default {
   setup(){
     
+    function lockToPortrait(){
+      logger.log('locked to portait')
+      screen.orientation.lock('portrait');
+    }
+
     onMounted(()=>{
       window.addEventListener('scroll', scrollPositionUpdate);
+      lockToPortrait()
     })
     
     function scrollPositionUpdate(){
@@ -44,7 +52,8 @@ export default {
     }
     
     return{
-      appState: computed(() => AppState)
+      appState: computed(() => AppState),
+      navOpen: computed(() => AppState.navOpen)
     }
   }
 }

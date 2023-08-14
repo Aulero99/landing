@@ -1,12 +1,12 @@
 <template>
-  <div class="layer-one">
+  <div class="layer layer-one">
     <div class="one"></div>
     <div class="two"></div>
     <div class="three"></div>
   </div>
 
   <div 
-  class="layer-two"
+  class="layer layer-two"
   :style="{'transform':'translateY(' + (bgBtm * 4) + '%) ' 
   + 'translateX(' + ((50 - (xPos * 100)) * 0.005) + '%)'}"
   >
@@ -24,7 +24,7 @@
   </div>
 
   <div 
-  class="layer-three"
+  class="layer layer-three"
   :style="{'transform':'translateY(' + (bgBtm * 2) + '%) ' 
   + 'translateX(' + ((50 - (xPos * 100)) * 0.0075) + '%)'}"
   >
@@ -34,7 +34,7 @@
   </div>
   
   <div 
-  class="layer-four"
+  class="layer layer-four"
   :style="{'transform':'translateY(' + (bgBtm * 3) + '%) ' 
   + 'translateX(' + ((50 - (xPos * 100)) * 0.01) + '%)'}"
   >
@@ -46,7 +46,7 @@
   </div>
 
   <div 
-  class="layer-five"
+  class="layer layer-five"
   :style="{'transform':'translateY(' + (bgBtm * 2) + '%) ' 
   + 'translateX(' + ((50 - (xPos * 100)) * 0.015) + '%)'}"
   >
@@ -141,16 +141,20 @@ h1{
   margin-right: 166vw;
   margin-left: auto;
 }
-.layer-one{
+.layer{
   user-select: none;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
   position: absolute;
-  overflow: hidden;
   top: 0;
   bottom: 0;
-  left: 0;
-  right: 0;
+  left: -100vw;
+  right: -100vw;
+  display: grid;
+}
+.layer-one{
+  width: 100vw;
+  left: 0 !important;
+  right: 0 !important;
   display: grid;
   background: linear-gradient(
         235deg, 
@@ -214,15 +218,7 @@ h1{
     }
 }
 .layer-two{
-  user-select: none;
   z-index: 10;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: -100vw;
-  right: -100vw;
-  display: grid;
     .one{
         height: 40vh;
         align-self: end;
@@ -243,15 +239,7 @@ h1{
       }
 }
 .layer-three{
-  user-select: none;
   z-index: 15;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: -100vw;
-  right: -100vw;
-  display: grid;
     .one{
       margin-bottom: calc($text-position + $h1-size-local);
       justify-self: center;
@@ -262,15 +250,7 @@ h1{
     }
 }
 .layer-four{
-  user-select: none;
   z-index: 20;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: -100vw;
-  right: -100vw;
-  display: grid;
   .one{
       height: 60vh;
       align-self: end;
@@ -284,13 +264,6 @@ h1{
 }
 .layer-five{
   z-index: 25;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: -100vw;
-  right: -100vw;
-  display: grid;
     .one{
       margin-bottom: $text-position;
       justify-self: center;
