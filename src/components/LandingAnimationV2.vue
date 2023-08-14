@@ -221,8 +221,9 @@ h1{
   z-index: 10;
     .one{
         height: 40vh;
-        align-self: end;
         justify-self: center;
+        align-self: flex-end;
+        bottom: 0;
         margin-bottom: 12vh;
           .triangle{
             background: $main1-gradient1
@@ -230,8 +231,9 @@ h1{
       }
       .two{
         height: 40vh;
-        align-self: end;
         justify-self: center;
+        align-self: flex-end;
+        bottom: 0;
         margin-bottom: 12vh;
           .triangle{
             background: $main1-gradient1;
@@ -244,6 +246,7 @@ h1{
       margin-bottom: calc($text-position + $h1-size-local);
       justify-self: center;
       align-self: flex-end;
+      bottom: 0;
         h1{
           color: white;
         }
@@ -253,8 +256,9 @@ h1{
   z-index: 20;
   .one{
       height: 60vh;
-      align-self: end;
       justify-self: center;
+      align-self: flex-end;
+      bottom: 0;
       margin-bottom: 8vh;
         .triangle{
           background: $main1-gradient2;
