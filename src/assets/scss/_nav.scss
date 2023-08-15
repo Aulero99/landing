@@ -1,6 +1,6 @@
 nav{
     width: $nav-width;
-    height: 100vh;
+    height: $vh100;
     position: fixed;
     top: 0;
     right: 0;
@@ -12,7 +12,7 @@ nav{
             transform: rotate(90deg);
             transform-origin: left top;
             margin-left: $nav-width;
-            width: 100vh;
+            width: $vh100;
             color: $main2;
             height: $nav-width;
             padding: 0 $navpad;
@@ -24,11 +24,12 @@ margin-right: $nav-width;
 }
 
 .content-gateway{
-    min-height: 100vh;
+    min-height: $vh100;
     width: calc(100% - $nav-width);
     display: flex;
     flex-direction: column;
     margin-left: $nav-width;
+    position: relative;
 }
 
 

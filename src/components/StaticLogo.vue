@@ -1,9 +1,10 @@
 <template>
     <div class="left-nav-container flex-row justify-end justify-lg-start"
+    :class="{'nav-open':navOpen}"
     @mouseenter="setActive()"
     @mouseleave="setInactive()"
     @click="openNav()"
-    :class="{'nav-open':navOpen}">
+    >
         <div class="logo-container elevation-3 flex-col justify-center"
         :class="{active:active}">
             <img src="../assets/img/logo.svg" alt="Logo" class="elevation" title="Contact Me">
@@ -12,9 +13,9 @@
 
     <div class="nav-cover"
     :class="{'nav-open':navOpen, 'nav-closed':!navOpen}"
-    @click="closeNav()">
-
-    </div>
+    @mouseenter="closeNav()"
+    @click="closeNav()"
+    > </div>
 </template>
   
 <script>
@@ -24,6 +25,8 @@ import { logger } from '../utils/Logger'
   export default {
     setup() {
         const active = ref(false)
+        const breakpoint = 1180
+        
         function closeNav(){ 
             AppState.navOpen = false
             active.value = false 
@@ -35,25 +38,26 @@ import { logger } from '../utils/Logger'
 
         return {
             active,
+            breakpoint,
             navOpen: computed(()=> AppState.navOpen),
             setActive(){ 
-                if(screen.width >= 992){
+                if(screen.width >= breakpoint){
                     active.value = true 
                 }
             },
             setInactive(){ 
-                if(screen.width >= 992){
+                if(screen.width >= breakpoint){
                     active.value = false
                 } 
             },
             openNav(){
-                if(screen.width < 992){
+                if(window.screen.width <= breakpoint){
                     AppState.navOpen = true
                     active.value = true 
                 }
             },
             closeNav(){
-                if(screen.width < 992){
+                if(window.screen.width <= breakpoint){
                     AppState.navOpen = false
                     active.value = false 
                 }
@@ -77,7 +81,7 @@ import { logger } from '../utils/Logger'
     z-index: 999;
         &.nav-open{
             transition: opacity $trans1 ease-in-out;
-            height: 100vh;
+            height: $vh100;
             opacity: 1;
         }
         &.nav-closed{

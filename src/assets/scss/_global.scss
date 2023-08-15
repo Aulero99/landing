@@ -3,8 +3,8 @@ body{
     overflow-x: hidden;
     margin: 0;
     padding: 0;
-    min-height: 100vh;
-    max-width: 100vw;
+    min-height: $vh100;
+    max-width: $vw100;
     width: 100%;
     ::selection{
         color: $txt;
@@ -27,25 +27,60 @@ main { flex-grow: 1; }
 
 a { text-decoration: none; }
 
+h1{
+    line-height: 1;
+    margin: 0;
+}
+
+h2{
+    line-height: 1;
+    margin: 0;
+}
+
+h3{
+    line-height: 1;
+    margin: 0;
+}
+
+h4{
+    line-height: 1;
+    margin: 0;
+}
+
+h5{
+    line-height: 1;
+    margin: 0;
+}
+
+p{
+    line-height: 1.85;
+    font-size: 1.2rem;
+    font-weight: 200;
+}
+
 #app {
     display: flex;
     flex-direction: column;
     width: 100%;
-    min-height: 100vh;
+    min-height: $vh100;
     margin: 0;
     padding: 0;
-    background-color: $bg;
     color: $txt;
     font-family: 'Rubik', sans-serif;
 }
 
-.vh-100{ min-height: 100vh; }
+.vh-100{ min-height: $vh100; }
 .bg-main{ background-color: $main1;}
 .bg-acct2{ background-color: $acct2;}
 
 .h-0{
     max-height: 0;
     overflow: hidden;
+}
+
+.bg-standard{
+    background-color: $bg;
+    z-index: 2;
 }
 
 .elevation-1 { box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12); }

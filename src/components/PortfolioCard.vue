@@ -1,38 +1,43 @@
 <template>
   <div class="repo-container fill" :id="repo.name + 'card'">
-    <div class="cover-img fill"
-    :style='{ 
-      "background-image": "url(" + repo.img + ")",
-      "background-position-y": bgBtm + "vh"
-      }'>
-    </div>
-    <div class="content-gateway fill-y px-3 card-container flex-col justify-center"
-    :class="{'align-start':(index%2) == 0, 'align-end':(index%2) == 1}">
-      <div class="card p-3 flex-col align-center justify-between elevation-3">
 
-        <img class="logo" :src="repo.logo" :alt="repo.name">
-        
-        <p class="description">
-          {{repo.description}}
-        </p>
-        
-        <div class="tech flex-row wrap justify-around">
-          <div class="icon" v-for="t in repo.tech" :key="t" >
-            <TechIcon :icon="t"/>
+    <div class="cover-img">
+      <div class="img-container"
+      :style='{"transform":"translateY(calc(" + bgBtm + " / 100 * var(--vp-height)))"}'>
+        <img :src="setImage(repo)" :alt="repo.name">
+      </div>
+    </div>
+
+    <div class="card-container fill">
+      <div class="content-gateway flex-col justify-center align-lg-center fill-y px-3"
+      :class="{'align-start':(index%2) == 0, 'align-end':(index%2) == 1}">
+
+        <div class="card p-lg-3 p-5 flex-col align-center justify-between elevation-3">
+          <img class="logo" :src="repo.logo" :alt="repo.name">
+          
+          <p class="description">
+            {{repo.description}}
+          </p>
+          
+          <div class="tech flex-row wrap justify-around">
+            <div class="icon" v-for="t in repo.tech" :key="t" >
+              <TechIcon :icon="t"/>
+            </div>
+          </div>
+  
+          <div class="links flex-row justify-around align-end fill-x">
+              <LinkButton v-if="repo.github" :ident="repo.name" icon="src/assets/img/icons/github.png" :link="repo.github" />
+              <LinkButton v-if="repo.url" :ident="repo.name" cta="http://" :link="repo.url" />
           </div>
         </div>
 
-        <div class="links flex-row justify-around align-end fill-x">
-            <LinkButton v-if="repo.github" :ident="repo.name" icon="src/assets/img/icons/github.png" :link="repo.github" />
-            <LinkButton v-if="repo.url" :ident="repo.name" cta="http://" :link="repo.url" />
-        </div>
       </div>
     </div>
   </div>
 </template>
   
 <script>
-import { onMounted, ref } from 'vue'
+import { onBeforeMount, onMounted, ref } from 'vue'
 import { logger } from '../utils/Logger'
 import { scrollService } from '../services/ScrollService'
   export default {
@@ -41,25 +46,55 @@ import { scrollService } from '../services/ScrollService'
       index: {type:Number, required:false}
     },
     setup(props) {
+      let longest = null
       let bgBtm = ref(0) 
-
+      
+      function getParams(){
+        let h = window.screen.height
+        let w = window.screen.width
+          if(h > w){ 
+            longest = h 
+          }else{
+            longest = w
+          }
+          logger.log(longest)
+      }
 
       function activateScrollEvents(){
-        // position logic goes here
         if(scrollService.inboundsCheck(`${props.repo.name}card`)){
           let percent = scrollService.percentBasedOnTop(`${props.repo.name}card`)
-          bgBtm.value = (20 * percent * -1)
+          bgBtm.value = (60 * percent)
         }
       }
 
       onMounted(()=>{
         window.addEventListener('scroll', activateScrollEvents);
+        window.addEventListener('resize', getParams);
       })
+      onBeforeMount(()=>{
+        getParams();
+      })
+
       return {
         bgBtm,
-        openInNewTab(url) {
-          const win = window.open(url, '_blank');
-          win?.focus();
+        longest,
+        setImage(rep){
+          if(longest > 1080){
+            return rep.img
+          }
+          if(longest > 600 && longest <= 1080){
+            return rep.img1080
+          }
+          if(longest > 300 && longest <= 600){
+            return rep.img600
+          }
+          return rep.img300
+        },
+        breakpointMet(){
+          if (longest < breakpoint){
+            return true
+          }
+          return false
         }
       }
     }
@@ -70,22 +105,48 @@ import { scrollService } from '../services/ScrollService'
 @import "../assets/scss/main.scss";
 .repo-container{
   position: relative;
-  height: 105vh;
-    .card-container{
-      position: absolute;
-      top: 0;
-        .card{
-          height: 75%;
-          aspect-ratio: 7/9;
-          background-color: $bg;
-          border-radius: 0.15rem;
-        }
-    }
+  height: calc($vh100 + 3rem);
+  width: 100%;
+}
+.card-container{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.card{
+  width: clamp(200px, 60%, 800px);
+  max-height: 85%;
+  aspect-ratio: 7/9;
+  background-color: $bg;
+  border-radius: 0.15rem;
+}
+.cover-img-small{
+  background-attachment: fixed;
+  background-size: cover;
 }
 .cover-img{
-  background-position-x: center;
-  background-attachment: fixed;
-  background-size: auto 135vh;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+    .img-container{
+      position: absolute;
+      top: calc($vh100 * -0.1);
+      left: -500vw;
+      right: -500vw;
+      margin-right: auto;
+      margin-left: auto;
+      height: calc($vh100 + (0.35 * $vh100) );
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-content: center;
+      img{
+        height: 100%;
+      }
+    }
 }
 .logo{
     width: 50%;
@@ -115,6 +176,13 @@ import { scrollService } from '../services/ScrollService'
 .links{
   display: flex;
   height: 15%;
+}
+@media screen and ($minmax: $lg){
+  .card{
+    width: clamp(200px, 90%, 800px);
+    height: 85%;
+    aspect-ratio: 7/9;
+  }
 }
 
 </style>

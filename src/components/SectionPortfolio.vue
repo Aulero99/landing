@@ -9,10 +9,8 @@
 </template>
   
 <script>
-import { computed, onMounted } from 'vue'
-import { logger } from '../utils/Logger'
+import { computed } from 'vue'
 import { AppState } from '../AppState'
-import { scrollService } from '../services/ScrollService'
   export default {
     setup() {
       return {
@@ -21,7 +19,3 @@ import { scrollService } from '../services/ScrollService'
     }
   }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

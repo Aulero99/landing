@@ -17,13 +17,11 @@ select {
     z-index: 1;
 }
 }
-
 form:invalid button[type="submit"] {
   filter: grayscale(1);
   color: $main2;
   pointer-events: none;
 }
-
 input,
 textarea{
   background-color: rgba($main2, 0.1);
@@ -57,20 +55,16 @@ textarea{
       }
     }
 }
-
 small{
   margin-left: 25px;
   position: relative;
+  margin-bottom: 1rem;
   &::before{
     position: absolute;
     content: '*';
     top: 0;
-    left: -25px;
+    left: -15px;
   }
-}
-
-small{
-    margin-bottom: 1rem;
 }
 .form-input-slide{
     position: relative;

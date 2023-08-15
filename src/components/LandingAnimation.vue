@@ -1,90 +1,93 @@
 <template>
-  <div class="landing-container">
+  <div class="layer layer-one">
+    <div class="one"></div>
+    <div class="two"></div>
+    <div class="three"></div>
+  </div>
 
-    <div class="layer-1"
-    >
-        <div class="one"
-        :style="{'transform':'translateY(' + (bgBtm * -5) + '%)'}"
-        >
-            <div class="triangle outline dark"></div>
-        </div>
-        <div class="two center-third"
-        :style="{'transform':'translateY(' + (bgBtm * -5) + '%)'}"
-        >
-            <div class="triangle outline light inverted"></div>
-        </div>
-    </div>
-    
-    <div class="layer-2">
-        <div class="one center-third flex-row justify-center align-center"
-        :style="{'transform':'translateX(' + ((50 - (xPos * 100)) * 0.005) + '%)'}"
-        >
-            <h1>HELLO</h1>
-        </div>
-        <div class="two center-third"
-        :style="{'transform':'translateX(' + ((50 - (xPos * 100)) * -0.02) + '%)'}"
-        ></div>
-        
-    </div>
+  <div 
+  class="layer layer-two"
+  :style="{'transform':'translateY(' + (bgBtm * 4) + '%) ' 
+  + 'translateX(' + ((50 - (xPos * 100)) * 0.005) + '%)'}"
+  >
+  <div class="one left flex-row justify-center"
+  :style="{'transform':'translateX(' + (bgBtm * -0.5) + '%)'}"
+  >
+    <div class="triangle"></div>
+  </div>
 
-    <div class="layer-3"
-    >        
-        <div class="one center-third"
-        :style="{'transform':'translateY(' + (bgBtm * -2) + '%)'}"
-        >
-            <div class="triangle gradient"></div>
-        </div>
-        <div class="two left-third"
-        :style="{'transform':'translateX(' + (bgBtm * -2) + '%)'}"
-        >
-            <div class="triangle gradient"></div>
-        </div>
-        <div class="three right-third"
-        :style="{'transform':'translateX(' + (bgBtm * 2) + '%)'}"
-        >
-            <div class="triangle gradient"></div>
-        </div>
+  <div class="two right flex-row justify-center"
+  :style="{'transform':'translateX(' + (bgBtm * 0.5) + '%)'}"
+  >
+    <div class="triangle"></div>
+  </div>
+  </div>
+
+  <div 
+  class="layer layer-three"
+  :style="{'transform':'translateY(' + (bgBtm * 2) + '%) ' 
+  + 'translateX(' + ((50 - (xPos * 100)) * 0.0075) + '%)'}"
+  >
+    <div class="one center flex-row justify-center">
+      <h1>CREATIVE</h1>
+    </div>
+  </div>
+  
+  <div 
+  class="layer layer-four"
+  :style="{'transform':'translateY(' + (bgBtm * 3) + '%) ' 
+  + 'translateX(' + ((50 - (xPos * 100)) * 0.01) + '%)'}"
+  >
+
+    <div class="center one flex-row justify-center">
+      <div class="triangle"></div>
     </div>
 
-    <div class="layer-4">
-        <div class="one fill flex-row justify-center align-center"
-        :style="{'transform':'translateX(' + ((50 - (xPos * 100)) * 0.007) + '%)'}"
-        >
-            <h1>
-                I'M AUSTON
-            </h1>
-        </div>
+  </div>
+
+  <div 
+  class="layer layer-five"
+  :style="{'transform':'translateY(' + (bgBtm * 2) + '%) ' 
+  + 'translateX(' + ((50 - (xPos * 100)) * 0.015) + '%)'}"
+  >
+
+    <div class="one">
+      <h1>
+        POTENTIAL
+      </h1>
     </div>
+
   </div>
 </template>
   
 <script>
 import { onMounted, ref } from 'vue'
 import { scrollService } from '../services/ScrollService'
-import { logger } from '../utils/Logger'
+
   export default {
     setup() {
-        let bgBtm = ref(0) 
-        let xPos = ref(0)
+      let bgBtm = ref(0) 
+      let xPos = ref(0)
 
-        function activateScrollEvents(){
+      function activateScrollEvents(){
         // position logic goes here
         if(scrollService.inboundsCheck(`landing`)){
             let percent = scrollService.percentBasedOnTop(`landing`)
             bgBtm.value = (40 * percent)
         }
-        }
+      }
 
-        function activateMouseEvents(e){
-            let w = window.innerWidth
-            let x = e.screenX
-            xPos.value = (x/w)
-        }
+      function activateMouseEvents(e){
+          let w = window.innerWidth
+          let x = e.screenX
+          // xPos.value = (x/w)
+      }
 
-        onMounted(()=>{
+      onMounted(()=>{
         window.addEventListener('scroll', activateScrollEvents);
-        window.addEventListener('mousemove', activateMouseEvents)
-        })
+        window.addEventListener('mousemove', activateMouseEvents);
+      })
+
       return {
         bgBtm,
         xPos
@@ -96,227 +99,179 @@ import { logger } from '../utils/Logger'
 <style lang="scss" scoped>
 @import "../assets/scss/main.scss";
 
-.landing-container{
-    height: 100vh;
-    width: 100%;
-    z-index: 1;
-    overflow: hidden;
-    position: relative;
-    // background: linear-gradient(
-    //             180deg, 
-    //             darken($main1, 25%) 0%, 
-    //             darken($main1, 45%) 50%, 
-    //             darken($main1, 70%) 100%,
-    //             );
-    background-color: darken($main1, 50%);
+// NOTE local variables for ease of use
+$text-position: calc(0.4 * $vh100);
+$h1-size-local: clamp(3rem, 14vw, 9.5rem);
+
+h1{
+  line-height: 1;
+  margin: 0;
+  font-size: $h1-size-local;
 }
+
 .triangle{
-    overflow: hidden;
-    width: 100%;
-    aspect-ratio: 1/1;
-    position: absolute;
-    bottom: 0;
-        &::before{
-            position: absolute;
-            top: 65%;
-            left: 15%;
-            content: '';
-            width: 70%;
-            aspect-ratio: 1/1;
-            transform: rotate(45deg);
-            transform-origin: center;
-        }
-        &.inverted{
-            transform: rotate(180deg);
-            transform-origin: bottom;
-            margin-bottom: 50%;
-        }
-        &.gradient{
-            &::before{
-                background: linear-gradient(
-                135deg, 
-                rgba(lighten($main1, 70%), 0.5) 0%, 
-                rgba(lighten($main1, 15%), 0.45) 15%, 
-                rgba($main1, 0.1) 35%,
-                transparent 45%
-                );
-            }
-        }
-        &.outline{
-            &.dark{
-                &::before{
-                    border: solid 0.15rem darken($main1, 20%);
-                }
-            }
-            &.light{
-                &::before{
-                    border: solid 0.15rem lighten($main1, 20%);
-                }
-            }
-        }
+  height: 100%;
+  aspect-ratio: 12/9;
+  clip-path: polygon(0% 100%, 50% 0%, 50% 0%, 100% 100%);
+  user-select: none;
 }
-.line{
-    width: 0.15rem;
-    position: relative;
-    height: 140%;
-    margin-bottom: 50%;
-    &.forty-five{
-        transform: rotate(45deg);
-        transform-origin: top;
-    }
-    &.light{
-        background: linear-gradient(
-                180deg, 
-                transparentize(lighten($main1, 25%), 0) 0%, 
-                lighten($main1, 25%), 
-                transparentize(lighten($main1, 25%), 0) 100%,
-                );
-    }
+.center{
+  position: absolute;
+  width: 100vw;
+  left: -100vw;
+  right: -100vw;
+  margin: auto;
 }
-.right-third{
-    position: absolute;
-    left: -500%;
-    right: -566%;
-    margin-left: auto;
-    margin-right: auto;
+.left{
+  position: absolute;
+  width: 100vw;
+  left: -100vw;
+  right: -100vw;
+  margin-left: 166vw;
+  margin-right: auto;
 }
-.left-third{
-    position: absolute;
-    left: -566%;
-    right: -500%;
-    margin-left: auto;
-    margin-right: auto;
+.right{
+  position: absolute;
+  width: 100vw;
+  left: -100vw;
+  right: -100vw;
+  margin-right: 166vw;
+  margin-left: auto;
 }
-.center-third{
-    position: absolute;
-    left: -500%;
-    right: -500%;
-    margin-left: auto;
-    margin-right: auto;
+.layer{
+  user-select: none;
+  height: $vh100;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -100vw;
+  right: -100vw;
+  display: grid;
 }
-.layer-2{
-    z-index: 10;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-        .one{
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-                h1{
-                    font-size: 9rem;
-                    color: #fff;
-                    margin: 0 0 30% 0;
-                    // background-color: rgba(invert($txt), 0.2);
-                    padding: 0.5rem 2rem;
-                    border-radius: 0.15rem;
-                }
-        }
-}
-.layer-1{
-    z-index: 5;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-        .one{
-            position: absolute;
-            height: 100%;
-            aspect-ratio: 2/1;
-            bottom: -19%;
-            left: -500%;
-            right: -500%;
-            margin-left: auto;
-            margin-right: auto;
-            .triangle{
-                opacity: 80%;
-            }
-        }
-        .two{
-            height: 100%;
-            aspect-ratio: 2/1;
-            bottom: 5%;
-            .triangle{
-                opacity: 80%;
-            }
-        }
-        .three{
-            position: absolute;
-            bottom: 10%;
-            right: -500%;
-            left: -500%;
-            height: 10%;
-            width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
-        }
-}
-.layer-3{
-    z-index: 15;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-        .one{
-            height: 80%;
-            aspect-ratio: 2/1;
-            bottom: -5%;
-            .triangle{
-                opacity: 80%;
-                // &::before{
-                //     backdrop-filter: blur(10px);
-                //     -webkit-backdrop-filter: blur(10px);
-                // }
-            }
-        }
-        .two{
-            height: 50%;
-            aspect-ratio: 2/1;
-            bottom: 10%;
-            .triangle{
-                opacity: 50%;
-                // &::before{
-                //     backdrop-filter: blur(10px);
-                //     -webkit-backdrop-filter: blur(10px);
-                // }
-            }
-        }
-        .three{
-            height: 50%;
-            aspect-ratio: 2/1;
-            bottom: 10%;
-            .triangle{
-                opacity: 50%;
-                // &::before{
-                //     backdrop-filter: blur(10px);
-                //     -webkit-backdrop-filter: blur(10px);
-                // }
-            }
-        }
-}
-.layer-4{
-    z-index: 20;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
+.layer-one{
+  width: 100vw;
+  left: 0 !important;
+  right: 0 !important;
+  display: grid;
+  background: linear-gradient(
+        235deg, 
+        adjust-hue(darken($main1, 20%), 15deg) 0%, 
+        darken(adjust-hue($main1, 35deg), 70%) 25%, 
+        darken($main1, 98%) 75%);
+    // .test{
+    //   z-index: 1;
+    //   height: 100%;
+    //   width: 100%;
+    //   top: 0;
+    //   left: 0;
+    //   position: absolute;
+    //   // background-color: darken($main1, 50%);
+    //   background-image: url('https://images.unsplash.com/photo-1579548122080-c35fd6820ecb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=2000&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ');
+    //   background-size: cover;
+    // }
     .one{
-        h1 {
-            color: $main1;
-            -webkit-text-fill-color: transparent;
-            -webkit-text-stroke: 3px;
-            font-size: 6rem;
-            margin: 0 0 -5% 0;
-            text-shadow: 1% 1% 3% desaturate(rgba(invert($main1), 0.5), 100%);
-            padding: 0.5rem 2rem;
-            border-radius: 0.15rem;
+      z-index: 5;
+      position: absolute;
+      top: 0;
+      right: 38vw;
+      height: 100%;
+      aspect-ratio: 16/17;
+      background: linear-gradient(
+        235deg, 
+        adjust-hue(lighten($main1, 5%), -40deg) 0%, 
+        $main1 35%, 
+        darken($main1, 98%) 60%);
+      clip-path: polygon(0% 95%, 0% 0%, 100% 0%);
+    }
+    .two{
+      z-index: 4;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: linear-gradient(
+        235deg, 
+        lighten($main1, 5%)  0%, 
+        adjust-hue(darken($main1, 3%), 18deg) 10%, 
+        adjust-hue(darken($main1, 38%), 12deg) 35%, 
+        darken($main1, 98%) 60%);
+      height: 125%;
+      aspect-ratio: 16/17;
+      clip-path: polygon(0% 95%, 0% 0%, 100% 0%);
+    }
+    .three{
+      z-index: 3;
+      position: absolute;
+      top: 0;
+      right: -11vw;
+      margin: auto;
+      background: linear-gradient(
+        235deg, 
+        adjust-hue(darken($main1, 3%), 15deg) 0%, 
+        darken(adjust-hue($main1, 35deg), 20%) 25%, 
+        darken($main1, 98%) 75%);
+        height: 100%;
+      aspect-ratio: 16/17;
+      clip-path: polygon(0% 95%, 0% 0%, 100% 0%);
+    }
+}
+.layer-two{
+  z-index: 10;
+    .one{
+        height: calc(0.4 * $vh100);
+        justify-self: center;
+        align-self: flex-end;
+        bottom: 0;
+        margin-bottom: calc(0.12 * $vh100);
+          .triangle{
+            background: $main1-gradient1
+          }
+      }
+      .two{
+        height: calc(0.4 * $vh100);
+        justify-self: center;
+        align-self: flex-end;
+        bottom: 0;
+        margin-bottom: calc(0.12 * $vh100);
+          .triangle{
+            background: $main1-gradient1;
+          }
+      }
+}
+.layer-three{
+  z-index: 15;
+    .one{
+      margin-bottom: calc($text-position + $h1-size-local);
+      justify-self: center;
+      align-self: flex-end;
+      bottom: 0;
+        h1{
+          color: white;
+        }
+    }
+}
+.layer-four{
+  z-index: 20;
+  .one{
+      height: calc(0.6 * $vh100);
+      justify-self: center;
+      align-self: flex-end;
+      bottom: 0;
+      margin-bottom: calc(0.08 * $vh100);
+        .triangle{
+          background: $main1-gradient2;
+          backdrop-filter: blur(10px);
+        }
+    }
+}
+.layer-five{
+  z-index: 25;
+    .one{
+      margin-bottom: $text-position;
+      justify-self: center;
+      align-self: flex-end;
+        h1{
+          -webkit-text-fill-color: transparent;
+          -webkit-text-stroke: 2px $main1;
         }
     }
 }

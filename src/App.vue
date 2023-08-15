@@ -30,15 +30,9 @@ import { logger } from './utils/Logger';
 
 export default {
   setup(){
-    
-    function lockToPortrait(){
-      logger.log('locked to portait')
-      screen.orientation.lock('portrait');
-    }
 
     onMounted(()=>{
       window.addEventListener('scroll', scrollPositionUpdate);
-      lockToPortrait()
     })
     
     function scrollPositionUpdate(){

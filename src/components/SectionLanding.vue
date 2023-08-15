@@ -1,11 +1,7 @@
 <template>
   <section class="row" id="landing">
       <div class="col-12 bg-main landing">
-        <!-- <div class="content-gateway py-5 px-3 justify-end">
-          <LandingCard/>
-        </div> -->
-        <!-- <LandingAnimation/> -->
-        <LandingAnimationV2/>
+        <LandingAnimation/>
       </div>
   </section>
 </template>
@@ -21,8 +17,10 @@
 </script>
 
 <style lang="scss" scoped>
+@import "../assets/scss/main.scss";
+
 .landing{
-  height: 100vh;
+  height: $vh100;
   width: 100%;
   position: relative;
   overflow: hidden;

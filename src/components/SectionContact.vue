@@ -1,16 +1,16 @@
 <template>
-    <section class="row" id="contact">
+    <section class="row bg-standard" id="contact">
         <div class="col-12">
           <div class="content-gateway justify-center align-center">
               <ContactForm/>
           </div>
         </div>
         <div class="col-12 bg-acct2 py-3 flex-row justify-between">
-          <div class="copyright">
+          <div class="content-gateway copyright">
             <div class="container">
               <div class="row px-3 justify-between">
 
-                <div class="col-4 my-3">
+                <div class="col-4 col-lg-12 my-3">
                   <h3>DESIGN</h3>
                   <ul>
                     <li>
@@ -25,7 +25,7 @@
                   </ul>
                 </div>
 
-                <div class="col-4 my-3">
+                <div class="col-4 col-lg-12 my-3">
                   <h3>PROGRAM</h3>
                   <ul>
                     <li>
@@ -58,14 +58,14 @@
                   </ul>
                 </div>
                 
-                <div class="col-4 my-3">
+                <div class="col-4 col-lg-12 my-3">
                   <h3>PUBLISH</h3>
                 </div>
-                <div class="col-6 col-md-12 flex-row justify-start align-center py-3">
+                <div class="col-6 col-lg-12 flex-row justify-start align-center py-3">
                   <img src="../assets/img/logo.svg" alt="logo" class="logo me-3">
                   © Copyright 2023 Auston Robertson.
                 </div>
-                <div class="col-4 col-md-12 flex-row justify-start justify-md-start align-center py-3">
+                <div class="col-4 col-lg-12 flex-row justify-start justify-md-start align-center py-3">
                   <a href="https://github.com/Aulero99" target="blank">
                     <img src="../assets/img/icons/github.png" alt="Github" title="Github" class="social">
                   </a>
@@ -98,13 +98,11 @@ ul{
   list-style: none;
 }
 .copyright{
-  min-height: 20vh;
-  width: calc(100% - $nav-width);
+  min-height: calc(0.2 * $vh100) !important;
   display: flex;
   flex-direction: column;
   justify-content: center;
   color: white;
-  margin-left: $nav-width;
   img{
     filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(309deg) brightness(104%) contrast(101%);
   }
