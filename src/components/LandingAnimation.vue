@@ -63,14 +63,18 @@
 <script>
 import { onMounted, ref } from 'vue'
 import { scrollService } from '../services/ScrollService'
+import { AppState } from '../AppState'
 
   export default {
     setup() {
       let bgBtm = ref(0) 
       let xPos = ref(0)
+      const breakpoint = AppState.breakPoint
 
       function activateScrollEvents(){
-        // position logic goes here
+        if(window.screen.width < breakpoint){
+          return
+        }
         if(scrollService.inboundsCheck(`landing`)){
             let percent = scrollService.percentBasedOnTop(`landing`)
             bgBtm.value = (40 * percent)

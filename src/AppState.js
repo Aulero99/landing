@@ -2,6 +2,7 @@ import { reactive } from 'vue'
 
 export const AppState = reactive({
     navOpen: false,
+    breakPoint: 1180,
     scrollPosition: 0,
     activePage:{dest:'landing', orig:'landing', hover: false},
     portfolio:[

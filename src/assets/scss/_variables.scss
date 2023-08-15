@@ -58,7 +58,7 @@ $vw100: var(--vp-width);
 
 // CSS variables for scoping some styles dynamically
 :root{
-    --navpad: calc(0.03 * $vh100);
+    --navpad: 3vh;
     --vp-height: 100vh;
     --vp-width: 100vw;
 }

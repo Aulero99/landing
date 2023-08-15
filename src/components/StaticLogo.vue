@@ -25,7 +25,7 @@ import { logger } from '../utils/Logger'
   export default {
     setup() {
         const active = ref(false)
-        const breakpoint = 1180
+        const breakpoint = AppState.breakPoint
         
         function closeNav(){ 
             AppState.navOpen = false

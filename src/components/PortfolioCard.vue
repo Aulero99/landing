@@ -2,9 +2,14 @@
   <div class="repo-container fill" :id="repo.name + 'card'">
 
     <div class="cover-img">
+      <!-- :style='{"transform":"translateY(calc(" + bgBtm + " / 100 * var(--vp-height)))"}' -->
       <div class="img-container"
-      :style='{"transform":"translateY(calc(" + bgBtm + " / 100 * var(--vp-height)))"}'>
-        <img :src="setImage(repo)" :alt="repo.name">
+      :style="{
+        'background-image':'url('+ setImage(repo) +')',
+        'transform':'translate3d(0px,' + bgBtm + 'px, 0px)'
+        }"
+      >
+        <!-- <img :src="setImage(repo)" :alt="repo.name"> -->
       </div>
     </div>
 
@@ -40,6 +45,7 @@
 import { onBeforeMount, onMounted, ref } from 'vue'
 import { logger } from '../utils/Logger'
 import { scrollService } from '../services/ScrollService'
+import { AppState } from '../AppState'
   export default {
     props:{
       repo: {type:Object, required:true},
@@ -48,6 +54,7 @@ import { scrollService } from '../services/ScrollService'
     setup(props) {
       let longest = null
       let bgBtm = ref(0) 
+      const breakpoint = AppState.breakPoint
       
       function getParams(){
         let h = window.screen.height
@@ -61,9 +68,13 @@ import { scrollService } from '../services/ScrollService'
       }
 
       function activateScrollEvents(){
+        if(window.screen.width <= breakpoint){
+          return
+        }
         if(scrollService.inboundsCheck(`${props.repo.name}card`)){
           let percent = scrollService.percentBasedOnTop(`${props.repo.name}card`)
-          bgBtm.value = (60 * percent)
+          const vh = window.innerHeight
+          bgBtm.value = ((0.6 * vh) * percent)
         }
       }
 
@@ -122,16 +133,12 @@ import { scrollService } from '../services/ScrollService'
   background-color: $bg;
   border-radius: 0.15rem;
 }
-.cover-img-small{
-  background-attachment: fixed;
-  background-size: cover;
-}
 .cover-img{
   position: relative;
   height: 100%;
   width: 100%;
   overflow: hidden;
-    .img-container{
+  .img-container{
       position: absolute;
       top: calc($vh100 * -0.1);
       left: -500vw;
@@ -143,9 +150,13 @@ import { scrollService } from '../services/ScrollService'
       flex-direction: row;
       justify-content: center;
       align-content: center;
-      img{
-        height: 100%;
-      }
+
+      background-size: auto 100%;
+      background-position-x: center;
+      // background-attachment: fixed;
+      // img{
+      //   height: 100%;
+      // }
     }
 }
 .logo{
