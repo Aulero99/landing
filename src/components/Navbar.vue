@@ -102,7 +102,7 @@ import { logger } from '../utils/Logger'
 .scroll-element{
     position: absolute;
     left: $navpad;
-    width: calc(100% - 6vh);
+    width: calc(100% - (0.06 * $vh100));
     height: 45%;
     top: 5%; 
     z-index: -1;
