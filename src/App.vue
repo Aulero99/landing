@@ -31,8 +31,29 @@ import { logger } from './utils/Logger';
 export default {
   setup(){
 
+    function setParams(){
+      const h = window.innerHeight
+      const w = window.innerWidth
+      const navPad = 0.03 * h
+
+      const root = document.querySelector(':root')
+      const rootStyles = getComputedStyle(root)
+      const vh = rootStyles.getPropertyValue('--vp-height')
+
+      root.style.setProperty('--vp-height', `${h}px`)
+      root.style.setProperty('--vp-width', `${w}px`)
+      root.style.setProperty('--navpad', `${navPad}px`)
+
+
+      logger.log('setting 100vh to', h + 'px')
+
+    }
+
     onMounted(()=>{
       window.addEventListener('scroll', scrollPositionUpdate);
+      // TODO this needs to check to see if the browser is on mobile or not
+      // window.addEventListener('resize', setParams);
+      setParams()
     })
     
     function scrollPositionUpdate(){
