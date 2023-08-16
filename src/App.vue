@@ -26,14 +26,15 @@
 import { computed, onMounted } from 'vue';
 import { AppState } from './AppState';
 import { scrollService } from './services/ScrollService';
-import { logger } from './utils/Logger';
 
 export default {
   setup(){
+    let width = 0
 
     function setParams(){
       const h = window.innerHeight
       const w = window.innerWidth
+      width = w
       const navPad = 0.03 * h
 
       const root = document.querySelector(':root')
@@ -44,15 +45,18 @@ export default {
       root.style.setProperty('--vp-width', `${w}px`)
       root.style.setProperty('--navpad', `${navPad}px`)
 
+    }
 
-      logger.log('setting 100vh to', h + 'px')
-
+    function updateParams(){
+      // NOTE this is a fix to make mobile resizing not glitch the page
+      if(window.innerWidth != width){
+        setParams()
+      }
     }
 
     onMounted(()=>{
       window.addEventListener('scroll', scrollPositionUpdate);
-      // TODO this needs to check to see if the browser is on mobile or not
-      // window.addEventListener('resize', setParams);
+      window.addEventListener('resize', updateParams);
       setParams()
     })
     
@@ -76,6 +80,4 @@ export default {
 
 <style lang="scss">
 @import "./assets/scss/main.scss";
-// @import "https://cdn.jsdelivr.net/gh/Aulero99/small_grid@main/min/min_grid.css";
-
 </style>

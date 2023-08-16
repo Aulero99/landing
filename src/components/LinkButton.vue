@@ -1,5 +1,5 @@
 <template>
-    <button :title="ident">
+    <button :title="ident" class="br-1">
         <a :href="link" target="blank" class="fill">
             <div class="background">
                 <svg x="0px" y="0px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" role="img">
@@ -37,7 +37,7 @@
 // STUB Change these variables to set the parameters of the element 
 $button-color: $main1;
 $text-color: black;
-$transition1: 800ms ease-in-out;
+$transition1: $trans3 ease-in-out;
 $transition2: 50ms linear;
 
 img{ height: 100%; }
@@ -74,7 +74,6 @@ button{
     border: 0;
     background: transparent;
     z-index: 2;
-    border-radius: 0.15rem;
     overflow: hidden;
     width: 100%;
     max-width: 10rem;

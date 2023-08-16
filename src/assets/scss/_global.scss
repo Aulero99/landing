@@ -1,6 +1,8 @@
+$headings:("1":$h1, "2":$h2, "3":$h3, "4":$h4, "5":$h5);
+
 body{
     overscroll-behavior: none;
-    overflow-x: hidden;
+    // overflow-x: hidden;
     margin: 0;
     padding: 0;
     min-height: $vh100;
@@ -25,37 +27,126 @@ body{
 
 main { flex-grow: 1; }
 
-a { text-decoration: none; }
+a{
+    text-decoration: none;
+    &.slide{
+        display: inline-block;
+        position: relative;
+        z-index: 1;
+        cursor: pointer;
+        padding: 0 0.15rem;
+        &.reg{
+            color: $txt;
+        }
+        &.inv{
+            color: $txt2;
+        }
+        &::before{
+          content: '';
+          height: 10%;
+          width: 100%;
+          background: $main1;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          z-index: -1;
+          transition: all $trans1 ease-in-out;
+        }
+        &:hover{
+          &::before{
+            height: 100%;
+          }
+        }
+    } 
+  }
 
-h1{
-    line-height: 1;
-    margin: 0;
-}
-
-h2{
-    line-height: 1;
-    margin: 0;
-}
-
-h3{
-    line-height: 1;
-    margin: 0;
-}
-
-h4{
-    line-height: 1;
-    margin: 0;
-}
-
-h5{
-    line-height: 1;
-    margin: 0;
+// Base Heading & Paragraph Logic
+@each $key, $value in $headings { 
+    h#{$key} { 
+        line-height: 1;
+        margin-top: 0;
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: calc(0.4 * $value);
+        font-size: $value; 
+    }
 }
 
 p{
     line-height: 1.85;
-    font-size: 1.2rem;
+    font-size: $fonts;
     font-weight: 200;
+}
+
+// Breakpoint Logic for Headings
+@media screen and (min-width: $xl) and (max-width: $xxl){
+    @each $key, $value in $headings { 
+        $multi: 0.85;
+
+        h#{$key} { 
+            margin-bottom: calc(0.4 * $multi * $value);
+            font-size: calc($value * $multi); 
+        }
+    }
+}
+
+@media screen and (min-width: $lg) and (max-width: $xl){
+    @each $key, $value in $headings { 
+        $multi: 0.75;
+
+        h#{$key} { 
+            margin-bottom: calc(0.4 * $multi * $value);
+            font-size: calc($value * $multi); 
+        }
+    }
+}
+
+@media screen and (min-width: $md) and (max-width: $lg){
+    @each $key, $value in $headings { 
+        $multi: 0.65;
+
+        h#{$key} { 
+            margin-bottom: calc(0.4 * $value);
+            font-size: calc($value * $multi); 
+        }
+    }
+
+    p{
+        line-height: 1.85;
+        font-size: calc($fonts *0.95);
+    }
+}
+
+@media screen and (min-width: $sm) and (max-width: $md){
+    @each $key, $value in $headings { 
+        $multi: 0.5;
+
+        h#{$key} { 
+            margin-bottom: calc(0.4 * $value);
+            font-size: calc($value * $multi); 
+        }
+    }
+
+    p{
+        line-height: 1.9;
+        font-size: calc($fonts *0.93);
+    }
+}
+
+@media screen and (max-width: $sm){
+    @each $key, $value in $headings { 
+        $multi: 0.45;
+
+        h#{$key} { 
+            margin-bottom: calc(0.4 * $value);
+            font-size: calc($value * $multi); 
+        }
+    }
+
+    p{
+        line-height: 1.95;
+        font-size: calc($fonts *0.87);
+    }
 }
 
 #app {
@@ -82,6 +173,13 @@ p{
     background-color: $bg;
     z-index: 2;
 }
+
+.br-1{ border-radius: $br1; }
+.br-2{ border-radius: calc(1.5 * $br1); }
+.br-3{ border-radius: calc(2 * $br1); }
+.br-4{ border-radius: calc(3 * $br1); }
+.br-5{ border-radius: calc(5 * $br1); }
+
 
 .elevation-1 { box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12); }
 .elevation-2 { box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }

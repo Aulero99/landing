@@ -17,7 +17,9 @@ $xxl: 1600px;
 
 // Background and Text Colors
 $bg: #f6f5f5;
+$bg2: #181818;
 $txt: #000;
+$txt2:rgb(255, 255, 255);
 
 // Theme Colors and Such
 $main1: #ff791a;
@@ -50,11 +52,32 @@ $trans2: 275ms;
 $trans3: 500ms;
 $trans4: 700ms;
 
+
+// Font variables
+$fonts: 1rem;
+
+// Paragraph Settings
+$p1: calc(1.2 * $fonts);
+$p2: calc(1.15 * $fonts);
+$p3: calc(1.1 * $fonts);
+$p4: calc(1.05 * $fonts);
+$p5: $fonts;
+
+// Heading Settings
+$h1: calc($fonts * 5.5);
+$h2: calc($fonts * 4.6);
+$h3: calc($fonts * 3.7);
+$h4: calc($fonts * 2.8);
+$h5: calc($fonts * 2);
+
+
 // Misc Variables
 $nav-width: 5rem;
 $navpad: var(--navpad);
 $vh100: var(--vp-height);
 $vw100: var(--vp-width);
+
+$br1: 0.15rem;
 
 // CSS variables for scoping some styles dynamically
 :root{

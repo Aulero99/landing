@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="submitForm()" class="flex-grow-1 form-container flex-col justify-center align-start">
+    <form @submit.prevent="submitForm()" class="flex-grow-1 form-container py-2 flex-col justify-center align-start">
 
             <h1>CONTACT</h1>
             
@@ -78,11 +78,6 @@ import { contactService } from '../services/ContactService'
 
 <style lang="scss" scoped>
 @import "../assets/scss/main.scss";
-h1{
-    font-size: 5.5rem;
-    margin: 0 0 4rem 0;
-    line-height: 1;
-}
 form{
     position: relative;
 }
@@ -90,7 +85,8 @@ form{
     min-width: 250px;
     width: 100%;
     max-width: 900px;
-    padding: $navpad 1rem;
+    padding-left: $navpad;
+    padding-right: $navpad;
 }
 
 textarea{

@@ -1,5 +1,5 @@
 <template>
-    <div class="left-nav-container flex-row justify-end justify-lg-start"
+    <div class="left-nav-container br-1 flex-row justify-end justify-lg-start"
     :class="{'nav-open':navOpen}"
     @mouseenter="setActive()"
     @mouseleave="setInactive()"
@@ -90,7 +90,6 @@ import { logger } from '../utils/Logger'
 }
 .left-nav-container{
     background-color: $bg;
-    border-radius: 0.15rem;
     position: fixed;
     z-index: 1000;
     width: calc($nav-width * 2);

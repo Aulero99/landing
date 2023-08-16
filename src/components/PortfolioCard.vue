@@ -2,14 +2,12 @@
   <div class="repo-container fill" :id="repo.name + 'card'">
 
     <div class="cover-img">
-      <!-- :style='{"transform":"translateY(calc(" + bgBtm + " / 100 * var(--vp-height)))"}' -->
       <div class="img-container"
       :style="{
         'background-image':'url('+ setImage(repo) +')',
         'transform':'translate3d(0px,' + bgBtm + 'px, 0px)'
         }"
       >
-        <!-- <img :src="setImage(repo)" :alt="repo.name"> -->
       </div>
     </div>
 
@@ -17,23 +15,24 @@
       <div class="content-gateway flex-col justify-center align-lg-center fill-y px-3"
       :class="{'align-start':(index%2) == 0, 'align-end':(index%2) == 1}">
 
-        <div class="card p-lg-3 p-5 flex-col align-center justify-between elevation-3">
-          <img class="logo" :src="repo.logo" :alt="repo.name">
+        <div class="card flex-col align-center justify-between elevation-3 br-1">
+          <img class="logo p-3" :src="repo.logo" :alt="repo.name">
           
-          <p class="description">
+          <p class="description grow-1 flex-col justify-center pb-3 m-0 px-3">
             {{repo.description}}
           </p>
           
-          <div class="tech flex-row wrap justify-around">
-            <div class="icon" v-for="t in repo.tech" :key="t" >
+          <div class="links flex-row justify-around align-end fill-x p-3">
+              <LinkButton v-if="repo.github" :ident="repo.name" icon="src/assets/img/icons/github.png" :link="repo.github" />
+              <LinkButton v-if="repo.url" :ident="repo.name" cta="http://" :link="repo.url" />
+          </div>
+
+          <div class="tech flex-row justify-start p-3">
+            <div class="icon me-2" v-for="t in repo.tech" :key="t" >
               <TechIcon :icon="t"/>
             </div>
           </div>
   
-          <div class="links flex-row justify-around align-end fill-x">
-              <LinkButton v-if="repo.github" :ident="repo.name" icon="src/assets/img/icons/github.png" :link="repo.github" />
-              <LinkButton v-if="repo.url" :ident="repo.name" cta="http://" :link="repo.url" />
-          </div>
         </div>
 
       </div>
@@ -43,7 +42,6 @@
   
 <script>
 import { onBeforeMount, onMounted, ref } from 'vue'
-import { logger } from '../utils/Logger'
 import { scrollService } from '../services/ScrollService'
 import { AppState } from '../AppState'
   export default {
@@ -64,7 +62,6 @@ import { AppState } from '../AppState'
           }else{
             longest = w
           }
-          logger.log(longest)
       }
 
       function activateScrollEvents(){
@@ -131,7 +128,7 @@ import { AppState } from '../AppState'
   max-height: 85%;
   aspect-ratio: 7/9;
   background-color: $bg;
-  border-radius: 0.15rem;
+  overflow: hidden;
 }
 .cover-img{
   position: relative;
@@ -141,8 +138,8 @@ import { AppState } from '../AppState'
   .img-container{
       position: absolute;
       top: calc($vh100 * -0.1);
-      left: -500vw;
-      right: -500vw;
+      left: calc(-0.05 * $vw100);
+      right: calc(-0.05 * $vw100);
       margin-right: auto;
       margin-left: auto;
       height: calc($vh100 + (0.35 * $vh100) );
@@ -150,13 +147,8 @@ import { AppState } from '../AppState'
       flex-direction: row;
       justify-content: center;
       align-content: center;
-
-      background-size: auto 100%;
+      background-size: cover;
       background-position-x: center;
-      // background-attachment: fixed;
-      // img{
-      //   height: 100%;
-      // }
     }
 }
 .logo{
@@ -169,12 +161,13 @@ import { AppState } from '../AppState'
   width: 100%;
   line-height: 1.5;
   text-align: left;
-  padding: 0.25rem 0;
-  margin: 0;
+  overflow: hidden;
 }
 .tech{
-  height: 6%;
+  background-color: darken($bg, 20%);
+  height: 12%;
   width: 100%;
+  overflow-y: hidden;
     .icon{
       filter: grayscale(100%);
       height: 100%;
@@ -186,7 +179,7 @@ import { AppState } from '../AppState'
 }
 .links{
   display: flex;
-  height: 15%;
+  min-height: 15%;
 }
 @media screen and ($minmax: $lg){
   .card{
