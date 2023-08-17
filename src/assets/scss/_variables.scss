@@ -1,3 +1,5 @@
+@import "../variables.json";
+
 // Grid Settings
 $gutter: 3rem;
 $minmax: max-width;
@@ -22,7 +24,7 @@ $txt: #000;
 $txt2:rgb(255, 255, 255);
 
 // Theme Colors and Such
-$main1: #ff791a;
+$main1: #1aa3ff;
 $main1-gradient1: linear-gradient(
     rgba(lighten($main1, 60%), 0.15) 0%, 
     rgba(darken($main1, 10%), 0.25) 50%, 
@@ -70,6 +72,9 @@ $h3: calc($fonts * 3.7);
 $h4: calc($fonts * 2.8);
 $h5: calc($fonts * 2);
 
+// Landing Animation Variables
+$shadow: 40px;
+$animTime: 5000ms;
 
 // Misc Variables
 $nav-width: 5rem;
