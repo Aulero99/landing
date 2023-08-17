@@ -77,7 +77,7 @@ import { contactService } from '../services/ContactService'
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/scss/main.scss";
+@import "../assets/scss/_variables.scss";
 form{
     position: relative;
 }
