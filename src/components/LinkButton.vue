@@ -32,7 +32,7 @@
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/scss/main.scss";
+@import "../assets/scss/_variables.scss";
 
 // STUB Change these variables to set the parameters of the element 
 $button-color: $main1;

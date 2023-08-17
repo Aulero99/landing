@@ -67,7 +67,8 @@ import { AppState } from '../AppState'
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/scss/main.scss";
+@import "../assets/scss/_variables.scss";
+
 .nav-cover{
     display: block;
     opacity: 0;

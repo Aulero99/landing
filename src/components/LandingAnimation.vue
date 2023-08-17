@@ -133,14 +133,15 @@ import { logger } from '../utils/Logger'
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/scss/main.scss";
+@import "../assets/scss/_variables.scss";
+
 
 // NOTE local variables for ease of use
 $text-position: calc(0.4 * $vh100);
 $h1-size-local: calc(1/8 * $vw100);
 
 h1{
-  line-height: 1;
+  line-height: 0;
   margin: 0;
   font-size: $h1-size-local;
 }

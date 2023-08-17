@@ -104,7 +104,8 @@ import { AppState } from '../AppState'
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/scss/main.scss";
+@import "../assets/scss/_variables.scss";
+
 .repo-container{
   position: relative;
   height: calc($vh100 + 3rem);

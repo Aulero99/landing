@@ -43,7 +43,8 @@ import { modals } from '../utils/ModalUtils'
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/scss/main.scss";
+@import "../assets/scss/_variables.scss";
+
 .profile-intro{
   display: flex;
   flex-direction: row;

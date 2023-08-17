@@ -58,7 +58,7 @@
 <script>
 import { computed, ref } from 'vue'
 import { AppState } from '../AppState'
-import { logger } from '../utils/Logger'
+// import { logger } from '../utils/Logger'
   export default {
 
     setup() {
@@ -98,7 +98,8 @@ import { logger } from '../utils/Logger'
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/scss/main.scss";
+@import "../assets/scss/_variables.scss";
+
 .scroll-element{
     position: absolute;
     left: $navpad;
