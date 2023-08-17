@@ -2,7 +2,8 @@
     <section class="row bg-standard " id="profile">
         <div class="col-12">
             <div class="content-gateway flex-col justify-center align-center">
-              <div class="profile-intro fill">
+              <div class="profile-intro limit-width fill"
+              :class="{inbounds:inbounds}">
                 <div class="profile-img">
                   <img src="https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg" alt="">
                 </div>
@@ -29,11 +30,26 @@
 </template>
   
 <script>
-import { AppState } from '../AppState'
+import { onMounted, ref } from 'vue'
 import { modals } from '../utils/ModalUtils'
+import { scrollService } from '../services/ScrollService'
   export default {
     setup() {
+      let inbounds= ref(false)
+
+      function activateScrollEvents(){
+        if(scrollService.inboundsPadTrigger(`profile`)){
+          inbounds.value = true
+        }else{
+          // inbounds.value = false
+        }
+      }
+
+      onMounted(()=>{
+        window.addEventListener('scroll', activateScrollEvents);
+      })
       return {
+        inbounds,
         openResume(){
            modals.open('resumeModal')
         }
@@ -46,12 +62,16 @@ import { modals } from '../utils/ModalUtils'
 @import "../assets/scss/_variables.scss";
 
 .profile-intro{
+  opacity: 0;
+  transition: all $trans3 ease-in-out;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   position: relative;
   width: 100%;
-  max-width: 900px;
+    &.inbounds{
+      opacity: 1;
+    }
   .profile-img{
     width: 30%;
     height: 100%;

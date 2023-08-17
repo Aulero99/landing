@@ -4,6 +4,8 @@ export const AppState = reactive({
     navOpen: false,
     breakPoint: 1180,
     modalOpen: false,
+    screenX: 0,
+    screenY: 0,
     scrollPosition: 0,
     activePage:{dest:'landing', orig:'landing', hover: false},
     portfolio:[

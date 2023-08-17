@@ -33,6 +33,13 @@ class ScrollService{
         }
     }
 
+    inboundsPadTrigger(idName){
+        const param = this.getSectionsScrollParams(idName)
+        if((param.position - window.scrollY) < (pad - 5) && (param?.position + param?.height - window?.scrollY) > pad){
+            return true
+        }
+    }
+
     percentBasedOnTop(idName){
         const el = this.getSectionsScrollParams(idName)
         const height = el.height

@@ -30,17 +30,15 @@ import { scrollService } from './services/ScrollService';
 
 export default {
   setup(){
-    let width = 0
 
     function setParams(){
       const h = window.innerHeight
       const w = window.innerWidth
-      width = w
+      AppState.screenX = w
+      AppState.screenY = h
       const navPad = 0.03 * h
 
       const root = document.querySelector(':root')
-      const rootStyles = getComputedStyle(root)
-      const vh = rootStyles.getPropertyValue('--vp-height')
 
       root.style.setProperty('--vp-height', `${h}px`)
       root.style.setProperty('--vp-width', `${w}px`)
@@ -50,6 +48,7 @@ export default {
 
     function updateParams(){
       // NOTE this is a fix to make mobile resizing not glitch the page
+      let width = AppState.screenX
       if(window.innerWidth != width){
         setParams()
       }

@@ -1,15 +1,15 @@
 <template>
 
   <div class="layer layer-one">
-    <div class="one"
+    <div class="one smooth"
     :style="{'transform':'translateY(' + (bgBtm * -5) + '%) ' 
     + 'translateX(' + ((50 - (xPos * 100)) * 0.005) + '%)'}"
     ></div>
-    <div class="two"
+    <div class="two smooth"
     :style="{'transform':'translateY(' + (bgBtm * -3) + '%) ' 
     + 'translateX(' + ((50 - (xPos * 100)) * 0.003) + '%)'}"
     ></div>
-    <div class="three"
+    <div class="three smooth"
     :style="{'transform':'translateY(' + (bgBtm * -1) + '%) ' 
     + 'translateX(' + ((50 - (xPos * 100)) * 0.002) + '%)'}"
     ></div>
@@ -17,17 +17,17 @@
 
   <div 
   v-if="largerThenBreakpoint"
-  class="layer layer-two"
+  class="layer layer-two smooth"
   :style="{'transform':'translateY(' + (bgBtm * 4) + '%) ' 
   + 'translateX(' + ((50 - (xPos * 100)) * 0.005) + '%)'}"
   >
-  <div class="one left flex-row justify-center"
+  <div class="one left flex-row justify-center smooth"
   :style="{'transform':'translateX(' + (bgBtm * -0.5) + '%)'}"
   >
     <div class="triangle"></div>
   </div>
 
-  <div class="two right flex-row justify-center"
+  <div class="two right flex-row justify-center smooth"
   :style="{'transform':'translateX(' + (bgBtm * 0.5) + '%)'}"
   >
     <div class="triangle"></div>
@@ -35,7 +35,7 @@
   </div>
 
   <div 
-  class="layer layer-three"
+  class="layer layer-three smooth"
   :style="{'transform':'translateY(' + (bgBtm * 2) + '%) ' 
   + 'translateX(' + ((50 - (xPos * 100)) * 0.0075) + '%)'}"
   >
@@ -45,7 +45,7 @@
   </div>
   
   <div 
-  class="layer layer-four"
+  class="layer layer-four smooth"
   :style="{'transform':'translateY(' + (bgBtm * 3) + '%) ' 
   + 'translateX(' + ((50 - (xPos * 100)) * 0.01) + '%)'}"
   >
@@ -57,7 +57,7 @@
   </div>
 
   <div 
-  class="layer layer-five"
+  class="layer layer-five smooth"
   :style="{'transform':'translateY(' + (bgBtm * 2) + '%) ' 
   + 'translateX(' + ((50 - (xPos * 100)) * 0.015) + '%)'}"
   >
@@ -74,14 +74,16 @@
 <script>
 import { onMounted, ref } from 'vue'
 import { scrollService } from '../services/ScrollService'
-import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
+import { parser } from '../utils/Parser'
+import vars from '../variables.json'
+
 
   export default {
     setup() {
       let bgBtm = ref(0) 
       let xPos = ref(0)
-      const breakpoint = AppState.breakPoint
+      const breakpoint = parser.px(vars.lg)
 
       function activateScrollEvents(){
         if(window.screen.width < breakpoint){
@@ -118,7 +120,7 @@ import { logger } from '../utils/Logger'
         bgBtm,
         xPos,
         largerThenBreakpoint(){
-          const breakPoint = AppState.breakPoint
+          const breakPoint = variables.lg
           const width = window.screen.width
           logger.log(width, breakPoint)
           if (width < breakPoint){

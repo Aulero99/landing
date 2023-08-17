@@ -5,7 +5,7 @@
       <div class="img-container"
       :style="{
         'background-image':'url('+ setImage(repo) +')',
-        'transform':'translate3d(0px,' + bgBtm + '%, 0px)'
+        'background-position-y': bgBtm + 'rem'
         }"
       >
       </div>
@@ -44,6 +44,7 @@
 import { onBeforeMount, onMounted, ref } from 'vue'
 import { scrollService } from '../services/ScrollService'
 import { AppState } from '../AppState'
+import { logger } from '../utils/Logger'
   export default {
     props:{
       repo: {type:Object, required:true},
@@ -70,8 +71,9 @@ import { AppState } from '../AppState'
         }
         if(scrollService.inboundsCheck(`${props.repo.name}card`)){
           let percent = scrollService.percentBasedOnTop(`${props.repo.name}card`)
-          const vh = window.innerHeight
-          bgBtm.value = ((0.06 * vh) * percent)
+          // logger.log('scroll pos '+ props.repo.name + ':', percent)
+          // const vh = window.innerHeight
+          bgBtm.value = (20 * percent)
         }
       }
 

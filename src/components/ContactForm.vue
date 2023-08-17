@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="submitForm()" class="flex-grow-1 form-container py-2 flex-col justify-center align-start">
+    <form @submit.prevent="submitForm()" class="flex-grow-1 form-container limit-width py-2 flex-col justify-center align-start">
 
             <h1>CONTACT</h1>
             
@@ -84,7 +84,6 @@ form{
 .form-container{
     min-width: 250px;
     width: 100%;
-    max-width: 900px;
     padding-left: $navpad;
     padding-right: $navpad;
 }

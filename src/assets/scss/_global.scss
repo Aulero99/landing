@@ -163,7 +163,12 @@ p{
 .vh-100{ min-height: $vh100; }
 .bg-main{ background-color: $main1;}
 .bg-acct2{ background-color: $acct2;}
-
+.smooth{
+    // transition: all ease-in-out 10ms;
+}
+.limit-width{
+    max-width: 1000px;
+}
 .h-0{
     max-height: 0;
     overflow: hidden;
