@@ -21,7 +21,6 @@
 <script>
 import { computed, onMounted, ref } from 'vue'
 import { AppState } from '../AppState'
-import { logger } from '../utils/Logger'
   export default {
     setup() {
         const active = ref(false)

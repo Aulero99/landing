@@ -5,7 +5,7 @@
       <div class="img-container"
       :style="{
         'background-image':'url('+ setImage(repo) +')',
-        'transform':'translate3d(0px,' + bgBtm + 'px, 0px)'
+        'transform':'translate3d(0px,' + bgBtm + '%, 0px)'
         }"
       >
       </div>
@@ -71,7 +71,7 @@ import { AppState } from '../AppState'
         if(scrollService.inboundsCheck(`${props.repo.name}card`)){
           let percent = scrollService.percentBasedOnTop(`${props.repo.name}card`)
           const vh = window.innerHeight
-          bgBtm.value = ((0.6 * vh) * percent)
+          bgBtm.value = ((0.06 * vh) * percent)
         }
       }
 
@@ -97,12 +97,6 @@ import { AppState } from '../AppState'
             return rep.img600
           }
           return rep.img300
-        },
-        breakpointMet(){
-          if (longest < breakpoint){
-            return true
-          }
-          return false
         }
       }
     }

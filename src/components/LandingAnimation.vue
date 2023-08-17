@@ -1,11 +1,22 @@
 <template>
+
   <div class="layer layer-one">
-    <div class="one"></div>
-    <div class="two"></div>
-    <div class="three"></div>
+    <div class="one"
+    :style="{'transform':'translateY(' + (bgBtm * -5) + '%) ' 
+    + 'translateX(' + ((50 - (xPos * 100)) * 0.005) + '%)'}"
+    ></div>
+    <div class="two"
+    :style="{'transform':'translateY(' + (bgBtm * -3) + '%) ' 
+    + 'translateX(' + ((50 - (xPos * 100)) * 0.003) + '%)'}"
+    ></div>
+    <div class="three"
+    :style="{'transform':'translateY(' + (bgBtm * -1) + '%) ' 
+    + 'translateX(' + ((50 - (xPos * 100)) * 0.002) + '%)'}"
+    ></div>
   </div>
 
   <div 
+  v-if="largerThenBreakpoint"
   class="layer layer-two"
   :style="{'transform':'translateY(' + (bgBtm * 4) + '%) ' 
   + 'translateX(' + ((50 - (xPos * 100)) * 0.005) + '%)'}"
@@ -53,7 +64,7 @@
 
     <div class="one">
       <h1>
-        POTENTIAL
+        PERSPECTIVE
       </h1>
     </div>
 
@@ -64,6 +75,7 @@
 import { onMounted, ref } from 'vue'
 import { scrollService } from '../services/ScrollService'
 import { AppState } from '../AppState'
+import { logger } from '../utils/Logger'
 
   export default {
     setup() {
@@ -81,10 +93,20 @@ import { AppState } from '../AppState'
         }
       }
 
+      // NOTE this function sets the xPos value between -1 and 1 with 0
+      // being the center of the screen, this value can then be used to 
+      // animate elements on the page. It will also attempt to stop if
+      // the device is touch only, but that code may be borked since
+      // I do not have a way to accurately test it ATM
       function activateMouseEvents(e){
+          let touch = !!('ontouchstart' in window) || (!!('onmsgesturechange' in window) && !!window.navigator.maxTouchPoints);
+          if(touch){
+            xPos = 0
+            return
+          }
           let w = window.innerWidth
           let x = e.screenX
-          // xPos.value = (x/w)
+          xPos.value = -1 + (2 * (x/w))
       }
 
       onMounted(()=>{
@@ -94,7 +116,17 @@ import { AppState } from '../AppState'
 
       return {
         bgBtm,
-        xPos
+        xPos,
+        largerThenBreakpoint(){
+          const breakPoint = AppState.breakPoint
+          const width = window.screen.width
+          logger.log(width, breakPoint)
+          if (width < breakPoint){
+            return false
+          }else{
+            return true
+          }
+        }
       }
     }
   }
@@ -105,7 +137,7 @@ import { AppState } from '../AppState'
 
 // NOTE local variables for ease of use
 $text-position: calc(0.4 * $vh100);
-$h1-size-local: clamp(3rem, 14vw, 9.5rem);
+$h1-size-local: calc(1/8 * $vw100);
 
 h1{
   line-height: 1;
@@ -121,25 +153,25 @@ h1{
 }
 .center{
   position: absolute;
-  width: 100vw;
-  left: -100vw;
-  right: -100vw;
+  width: $vw100;
+  left: calc(-1 * $vw100);
+  right: calc(-1 * $vw100);
   margin: auto;
 }
 .left{
   position: absolute;
-  width: 100vw;
-  left: -100vw;
-  right: -100vw;
-  margin-left: 166vw;
+  width: $vw100;
+  left: calc(-1 * $vw100);
+  right: calc(-1 * $vw100);
+  margin-left: calc(1.66 * $vw100);
   margin-right: auto;
 }
 .right{
   position: absolute;
-  width: 100vw;
-  left: -100vw;
-  right: -100vw;
-  margin-right: 166vw;
+  width: $vw100;
+  left: calc(-1 * $vw100);
+  right: calc(-1 * $vw100);
+  margin-right: calc(1.66 * $vw100);
   margin-left: auto;
 }
 .layer{
@@ -148,12 +180,12 @@ h1{
   position: absolute;
   top: 0;
   bottom: 0;
-  left: -100vw;
-  right: -100vw;
+  left: calc(-1 * $vw100);
+  right: calc(-1 * $vw100);
   display: grid;
 }
 .layer-one{
-  width: 100vw;
+  width: $vw100;
   left: 0 !important;
   right: 0 !important;
   display: grid;
@@ -162,80 +194,98 @@ h1{
         adjust-hue(darken($main1, 20%), 15deg) 0%, 
         darken(adjust-hue($main1, 35deg), 70%) 25%, 
         darken($main1, 98%) 75%);
-    // .test{
-    //   z-index: 1;
-    //   height: 100%;
-    //   width: 100%;
-    //   top: 0;
-    //   left: 0;
-    //   position: absolute;
-    //   // background-color: darken($main1, 50%);
-    //   background-image: url('https://images.unsplash.com/photo-1579548122080-c35fd6820ecb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=2000&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ');
-    //   background-size: cover;
-    // }
     .one{
       z-index: 5;
       position: absolute;
       top: 0;
-      right: 38vw;
-      height: 100%;
+      right: calc(0.38 * $vw100);
+      width: 100%;
       aspect-ratio: 16/17;
-      background: linear-gradient(
-        235deg, 
-        adjust-hue(lighten($main1, 5%), -40deg) 0%, 
-        $main1 35%, 
-        darken($main1, 98%) 60%);
-      clip-path: polygon(0% 95%, 0% 0%, 100% 0%);
+      filter: drop-shadow(80px -30px 30px adjust-hue(lighten($main1, 10%), 25deg));
+      animation: landing-layer-one-one $animTime infinite;
+        &::after{
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          clip-path: polygon(0% 95%, 0% 0%, 100% 0%);
+          background: linear-gradient(
+            235deg, 
+            adjust-hue(lighten($main1, 5%), -40deg) 0%, 
+            $main1 15%, 
+            darken($main1, 98%) 40%);
+          }
     }
     .two{
       z-index: 4;
       position: absolute;
       top: 0;
       right: 0;
-      background: linear-gradient(
-        235deg, 
-        lighten($main1, 5%)  0%, 
-        adjust-hue(darken($main1, 3%), 18deg) 10%, 
-        adjust-hue(darken($main1, 38%), 12deg) 35%, 
-        darken($main1, 98%) 60%);
-      height: 125%;
+      width: 110%;
       aspect-ratio: 16/17;
-      clip-path: polygon(0% 95%, 0% 0%, 100% 0%);
+      filter: drop-shadow(80px -30px 30px adjust-hue(lighten($main1, 10%), 25deg));
+      animation: landing-layer-one-two $animTime infinite;
+        &::after{
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          clip-path: polygon(0% 95%, 0% 0%, 100% 0%);
+          background: linear-gradient(
+            235deg, 
+            lighten($main1, 5%)  0%, 
+            adjust-hue(darken($main1, 3%), 18deg) 2%, 
+            adjust-hue(darken($main1, 38%), 12deg) 35%, 
+            darken($main1, 98%) 60%);
+          }
     }
     .three{
       z-index: 3;
       position: absolute;
       top: 0;
-      right: -11vw;
+      right: calc(-0.1 * $vw100);
       margin: auto;
-      background: linear-gradient(
-        235deg, 
-        adjust-hue(darken($main1, 3%), 15deg) 0%, 
-        darken(adjust-hue($main1, 35deg), 20%) 25%, 
-        darken($main1, 98%) 75%);
-        height: 100%;
+      width: 150%;
       aspect-ratio: 16/17;
-      clip-path: polygon(0% 95%, 0% 0%, 100% 0%);
+      filter: drop-shadow(80px -30px 30px adjust-hue(lighten($main1, 10%), 25deg));
+      animation: landing-layer-one-three $animTime infinite;
+      &::after{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        clip-path: polygon(0% 95%, 0% 0%, 100% 0%);
+        background: linear-gradient(
+          235deg, 
+          adjust-hue(darken($main1, 3%), 15deg) 0%, 
+          darken(adjust-hue($main1, 35deg), 20%) 25%, 
+          darken($main1, 98%) 50%);
+      }
+      
     }
 }
 .layer-two{
   z-index: 10;
     .one{
-        height: calc(0.4 * $vh100);
+        height: calc(0.5 * $vh100);
         justify-self: center;
         align-self: flex-end;
         bottom: 0;
-        margin-bottom: calc(0.12 * $vh100);
           .triangle{
             background: $main1-gradient1
           }
       }
       .two{
-        height: calc(0.4 * $vh100);
+        height: calc(0.5 * $vh100);
         justify-self: center;
         align-self: flex-end;
         bottom: 0;
-        margin-bottom: calc(0.12 * $vh100);
           .triangle{
             background: $main1-gradient1;
           }
@@ -256,11 +306,10 @@ h1{
 .layer-four{
   z-index: 20;
   .one{
-      height: calc(0.6 * $vh100);
+      height: calc(0.75 * $vh100);
       justify-self: center;
       align-self: flex-end;
       bottom: 0;
-      margin-bottom: calc(0.08 * $vh100);
         .triangle{
           background: $main1-gradient2;
           backdrop-filter: blur(10px);

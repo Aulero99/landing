@@ -17,6 +17,7 @@
     </section>
   </div>
   <footer>
+    <ResumeModal/>
   </footer>
 </template>
 

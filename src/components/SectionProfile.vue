@@ -1,12 +1,13 @@
 <template>
     <section class="row bg-standard " id="profile">
         <div class="col-12">
-            <div class="content-gateway">
+            <div class="content-gateway flex-col justify-center align-center">
               <div class="profile-intro fill">
                 <div class="profile-img">
                   <img src="https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg" alt="">
                 </div>
                 <div class="text p-lg-4">
+                  <h1>ABOUT ME</h1>
                   <p>
                     You can call me a full stack developer, web experience designer, experience engineer, UI, UX or any other industry title you like. I'm also a dedicated student of life with a large array of skills stemming from my experience as a web designer, developer, writer, presenter, avid gamer, snowboard enthusiast and more.
                   </p>
@@ -17,7 +18,7 @@
                     I also like to sharpen my skills through new opportunities with like-minded individuals. Whether it be as a leader, or a teammate I am always eager to what I can do to help make something amazing. 
                   </p>
                   <p>
-                    If I sound like the kind of person you are looking for, check our my <a class="slide reg">Resume</a> or get in touch with me on <a class="slide reg" href="https://www.linkedin.com/in/auston-robertson-fullstack-dev/" title="My LinkedIn" target="blank">LinkedIn</a> or fork me on <a class="slide reg" href="https://github.com/Aulero99" title="My Github" target="blank">Github</a>.
+                    If I sound like the kind of person you are looking for, check our my <a class="slide reg" @click="openResume()">Resume</a> or get in touch with me on <a class="slide reg" href="https://www.linkedin.com/in/auston-robertson-fullstack-dev/" title="My LinkedIn" target="blank">LinkedIn</a> or fork me on <a class="slide reg" href="https://github.com/Aulero99" title="My Github" target="blank">Github</a>.
                   </p>
                 </div>
               </div>
@@ -28,10 +29,14 @@
 </template>
   
 <script>
+import { AppState } from '../AppState'
+import { modals } from '../utils/ModalUtils'
   export default {
     setup() {
       return {
-  
+        openResume(){
+           modals.open('resumeModal')
+        }
       }
     }
   }
@@ -44,6 +49,8 @@
   flex-direction: row;
   justify-content: space-around;
   position: relative;
+  width: 100%;
+  max-width: 900px;
   .profile-img{
     width: 30%;
     height: 100%;
