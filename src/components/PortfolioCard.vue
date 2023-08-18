@@ -12,24 +12,35 @@
 
     <div class="card-container fill">
       <div class="content-gateway flex-col justify-center align-lg-center fill-y px-3"
-      :class="{'align-start':(index%2) == 0, 'align-end':(index%2) == 1}">
+      :class="{'card-left':(index%2) == 0, 'card-right':(index%2) == 1}">
 
-        <div class="card flex-col align-center justify-between elevation-3 br-1">
-          <img class="logo p-3" :src="repo.logo" :alt="repo.name">
+        <div ref="card" class="card flex-col align-center justify-between elevation-3 br-1">
+
+          <div class="logo-container">
+            <div class="background fill">
+              <div class="color-fill" :style="{'background-color':repo.favColor}"></div>
+              <svg x="0px" y="0px" viewBox="0 0 100 25" preserveAspectRatio="xMidYMid slice" role="img">
+                <polygon class="triangle" points="0,0 100,0 0,25" :style="{fill:repo.favColor}"/>
+              </svg>
+            </div>
+            <div class="foreground">
+              <img class="logo p-3" :src="repo.logo" :alt="repo.name">
+            </div>
+          </div>
           
-          <p class="description grow-1 flex-col justify-center pb-3 m-0 px-3">
-            {{repo.description}}
-          </p>
+          <div class="description grow-1 flex-col justify-center pb-3 mt-2 px-3">
+            <h2>{{ repo.name }}</h2>
+            <ul class="flex-row">
+              <li v-for="t in repo.tech" :key="t"> {{ t }} </li>
+            </ul>
+            <p class="">
+              {{repo.description}}
+            </p>
+          </div>
           
-          <div class="links flex-row justify-around align-end fill-x p-3">
+          <div class="links flex-row justify-around align-end fill-x px-3 my-5">
               <LinkButton v-if="repo.github" :ident="repo.name" icon="src/assets/img/icons/github.png" :link="repo.github" />
               <LinkButton v-if="repo.url" :ident="repo.name" cta="http://" :link="repo.url" />
-          </div>
-
-          <div class="tech flex-row justify-start p-3">
-            <div class="icon me-2" v-for="t in repo.tech" :key="t" >
-              <TechIcon :icon="t"/>
-            </div>
           </div>
   
         </div>
@@ -40,10 +51,7 @@
 </template>
   
 <script>
-import { onBeforeMount, onMounted, ref } from 'vue'
-import { scrollService } from '../services/ScrollService'
-import { AppState } from '../AppState'
-import { logger } from '../utils/Logger'
+import { onMounted, ref } from 'vue'
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -54,54 +62,21 @@ export default {
   },
   setup(props) {
       gsap.registerPlugin(ScrollTrigger);
-      // let longest = null
-      // let bgBtm = ref(0) 
       const bgImage = ref(null)
       const container = ref(null)
-      // const breakpoint = AppState.breakPoint
-      
+      const card = ref(null)
+    let slide = 0
 
-      // gsap.to(`#${props.repo.name}card`,{
-      //   color: "#fff",
-      //   duration: 2
-      // });
+      function setLeftOrRight(){
+        if(props.index % 2 == 0){
+          slide = -20
+        } else{
+          slide = 20
+        }
+      }
 
-
-      // function getParams(){
-      //   let h = window.screen.height
-      //   let w = window.screen.width
-      //     if(h > w){ 
-      //       longest = h 
-      //     }else{
-      //       longest = w
-      //     }
-      // }
-      // function activateScrollEvents(){
-      //   if(window.screen.width <= breakpoint){
-      //     return
-      //   }
-      //   if(scrollService.inboundsCheck(`${props.repo.name}card`)){
-      //     let percent = scrollService.percentBasedOnTop(`${props.repo.name}card`)
-      //     // logger.log('scroll pos '+ props.repo.name + ':', percent)
-      //     // const vh = window.innerHeight
-      //     bgBtm.value = ((AppState.screenY * 0.3) * percent)
-      //   }
-      // }
 
       onMounted(()=>{
-        // window.addEventListener('scroll', activateScrollEvents);
-        // window.addEventListener('resize', getParams);
-        // ScrollTrigger.create({
-        //   trigger:bgImage.value,
-        //   id:`${props.repo.name}card`,
-        //   animation: timeline,
-        //   markers: true,
-        //   start:"top bottom",
-        //   end:"bottom center",
-        // })
-        // gsap.to(bgImage.value,{
-        //   opacity: 0
-        // })
         gsap.from(bgImage.value,{
           scrollTrigger:{
             trigger:container.value,
@@ -111,30 +86,30 @@ export default {
             scrub: true,
             delay:1
           },
-          y: "-60%"
+          ease: "none",
+          y: "-45%"
         })
-      })
-      onBeforeMount(()=>{
-        // getParams();
+
+        setLeftOrRight()
+
+        gsap.from(card.value,{
+          scrollTrigger:{
+            trigger:container.value,
+            id:`${props.repo.name}`,
+            start:"top 70%",
+            end:"top 30%",
+            scrub: 1
+          },
+          opacity: 0,
+          x: `${slide}%`
+        })
+
       })
 
       return {
         bgImage,
         container,
-        // bgBtm,
-        // longest,
-        // setImage(rep){
-        //   if(longest > 1080){
-        //     return rep.img
-        //   }
-        //   if(longest > 600 && longest <= 1080){
-        //     return rep.img1080
-        //   }
-        //   if(longest > 300 && longest <= 600){
-        //     return rep.img600
-        //   }
-        //   return rep.img300
-        // }
+        card
       }
     }
   }
@@ -154,13 +129,12 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-}
-.card{
-  width: clamp(200px, 60%, 800px);
-  max-height: 85%;
-  aspect-ratio: 7/9;
-  background-color: $bg;
-  overflow: hidden;
+    .card-left{
+      align-items: flex-start;
+    }
+    .card-right{
+      align-items: flex-end;
+    }
 }
 .cover-img{
   position: relative;
@@ -183,10 +157,43 @@ export default {
       background-position-x: center;
     }
 }
-.logo{
-    width: 50%;
-    aspect-ratio: auto;
-    max-height: 9rem;
+.card{
+  max-height: 75%;
+  margin-bottom: 10%;
+  aspect-ratio: 7/11;
+  background-color: $bg;
+  overflow: hidden;
+    .logo-container{
+        height: 25%;
+        width: 100%;
+        position: relative;
+          .background{
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+              .color-fill{
+                flex-grow: 1;
+              }
+          }
+          .foreground{
+            position: absolute;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+              .logo{
+                  max-width: 50%;
+                  max-height: 65%;
+                  aspect-ratio: auto;
+                  // max-height: 9rem;
+              }
+          }
+    }
 }
 .description{
   display: flex;
@@ -194,6 +201,24 @@ export default {
   line-height: 1.5;
   text-align: left;
   overflow: hidden;
+    ul{
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: calc($fonts * 1.2);
+      font-weight: 500;
+      li{
+        &::after{
+          content: '|';
+          margin: 0 0.6rem;
+        }
+        &:last-child{
+          &::after{
+            content: '' !important;
+          }
+        }
+      }
+    }
 }
 .tech{
   background-color: darken($bg, 20%);
