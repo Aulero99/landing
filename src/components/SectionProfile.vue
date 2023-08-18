@@ -7,7 +7,7 @@
                   <img src="https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg" alt="">
                 </div>
                 <div ref="profileText" class="text p-lg-4">
-                  <h1>ABOUT ME</h1>
+                  <h1>I'M AUSTON</h1>
                   <p>
                     You can call me a full-stack developer, web experience designer, UI, UX, or any other industry title you like. I'm also a dedicated student of life with an arsenal of skills originating from my experience as a web designer, developer, writer, presenter, avid gamer, snowboard enthusiast, and more.
                   </p>

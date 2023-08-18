@@ -17,7 +17,7 @@
 
   <div 
   v-if="largerThenBreakpoint"
-  class="layer layer-two"
+  class="layer layer-two d-lg-none"
   :style="{'transform':'translateY(' + (bgBtm * 4) + '%) ' 
   + 'translateX(' + ((50 - (xPos * 100)) * 0.005) + '%)'}"
   >
@@ -40,7 +40,7 @@
   + 'translateX(' + ((50 - (xPos * 100)) * 0.0075) + '%)'}"
   >
     <div class="one center flex-row justify-center">
-      <h1>CREATIVE</h1>
+      <h1>HELLO</h1>
     </div>
   </div>
   
@@ -64,7 +64,7 @@
 
     <div class="one">
       <h1>
-        PERSPECTIVE
+        THERE
       </h1>
     </div>
 
@@ -135,7 +135,7 @@ import { logger } from '../utils/Logger'
 
 // NOTE local variables for ease of use
 $text-position: calc(0.4 * $vh100);
-$h1-size-local: calc(1/8 * $vw100);
+$h1-size-local: clamp(6rem, calc(1/10 * $vw100), 20rem);
 
 h1{
   line-height: 0;
@@ -308,7 +308,8 @@ h1{
 .layer-four{
   z-index: 20;
   .one{
-      height: calc(0.75 * $vh100);
+      height: calc(0.35 * $vh100 + ( 4 * $h1-size-local));
+      max-height: (calc(0.85 * $vh100));
       justify-self: center;
       align-self: flex-end;
       bottom: 0;

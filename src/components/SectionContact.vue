@@ -2,7 +2,8 @@
     <section class="row bg-primary" id="contact">
         <div class="col-12">
           <div class="content-gateway justify-center align-center py-lg-4 my-lg-5">
-              <ContactForm/>
+              <!-- <ContactForm/> -->
+              <Socials/>
           </div>
         </div>
       </section>

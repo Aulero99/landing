@@ -1,15 +1,15 @@
 <template>
 <div class="landing-container fill">
   <div class="layer layer-one">
-    <div class="one smooth"
+    <div class="one"
     :style="{'transform':'translateY(' + (bgBtm * -5) + '%) ' 
     + 'translateX(' + ((50 - (xPos * 100)) * 0.005) + '%)'}"
     ></div>
-    <div class="two smooth"
+    <div class="two"
     :style="{'transform':'translateY(' + (bgBtm * -3) + '%) ' 
     + 'translateX(' + ((50 - (xPos * 100)) * 0.003) + '%)'}"
     ></div>
-    <div class="three smooth"
+    <div class="three"
     :style="{'transform':'translateY(' + (bgBtm * -1) + '%) ' 
     + 'translateX(' + ((50 - (xPos * 100)) * 0.002) + '%)'}"
     ></div>
@@ -17,17 +17,17 @@
 
   <div 
   v-if="largerThenBreakpoint"
-  class="layer layer-two smooth"
+  class="layer layer-two d-lg-none"
   :style="{'transform':'translateY(' + (bgBtm * 4) + '%) ' 
   + 'translateX(' + ((50 - (xPos * 100)) * 0.005) + '%)'}"
   >
-  <div class="one left flex-row justify-center smooth"
+  <div class="one left flex-row justify-center"
   :style="{'transform':'translateX(' + (bgBtm * -0.5) + '%)'}"
   >
     <div class="triangle"></div>
   </div>
 
-  <div class="two right flex-row justify-center smooth"
+  <div class="two right flex-row justify-center"
   :style="{'transform':'translateX(' + (bgBtm * 0.5) + '%)'}"
   >
     <div class="triangle"></div>
@@ -35,7 +35,7 @@
   </div>
 
   <div 
-  class="layer layer-three smooth"
+  class="layer layer-three"
   :style="{'transform':'translateY(' + (bgBtm * 2) + '%) ' 
   + 'translateX(' + ((50 - (xPos * 100)) * 0.0075) + '%)'}"
   >
@@ -45,7 +45,7 @@
   </div>
   
   <div 
-  class="layer layer-four smooth"
+  class="layer layer-four"
   :style="{'transform':'translateY(' + (bgBtm * 3) + '%) ' 
   + 'translateX(' + ((50 - (xPos * 100)) * 0.01) + '%)'}"
   >
@@ -57,7 +57,7 @@
   </div>
 
   <div 
-  class="layer layer-five smooth"
+  class="layer layer-five"
   :style="{'transform':'translateY(' + (bgBtm * 2) + '%) ' 
   + 'translateX(' + ((50 - (xPos * 100)) * 0.015) + '%)'}"
   >
