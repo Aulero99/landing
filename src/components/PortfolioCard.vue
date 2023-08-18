@@ -10,8 +10,8 @@
       </div>
     </div>
 
-    <div class="card-container fill">
-      <div class="content-gateway flex-col justify-center align-lg-center fill-y px-3"
+    <div class="card-container flex-row justify-center fill">
+      <div class="content-gateway flex-col justify-start align-lg-center fill-y px-3 portfolio-gateway"
       :class="{'card-left':(index%2) == 0, 'card-right':(index%2) == 1}">
 
         <div ref="card" class="card flex-col align-center justify-between elevation-3 br-1">
@@ -30,9 +30,9 @@
           
           <div class="description grow-1 flex-col justify-center pb-3 mt-2 px-3">
             <h2>{{ repo.name }}</h2>
-            <ul class="flex-row">
-              <li v-for="t in repo.tech" :key="t"> {{ t }} </li>
-            </ul>
+            <div class="flex-row tech">
+              <div v-for="t in repo.tech" :key="t" class="tech-heading"> {{ t }} </div>
+            </div>
             <p class="">
               {{repo.description}}
             </p>
@@ -136,6 +136,9 @@ export default {
       align-items: flex-end;
     }
 }
+.portfolio-gateway{
+  max-width: 1500px;
+}
 .cover-img{
   position: relative;
   height: 100%;
@@ -159,7 +162,7 @@ export default {
 }
 .card{
   max-height: 75%;
-  margin-bottom: 10%;
+  margin-top: $navpad;
   aspect-ratio: 7/11;
   background-color: $bg;
   overflow: hidden;
@@ -177,6 +180,10 @@ export default {
             left: 0;
               .color-fill{
                 flex-grow: 1;
+                border-radius: 0 0 0.15rem 0;
+              }
+              svg{
+                margin-top: -1px;
               }
           }
           .foreground{
@@ -201,13 +208,14 @@ export default {
   line-height: 1.5;
   text-align: left;
   overflow: hidden;
-    ul{
+    .tech{
       list-style: none;
       padding: 0;
       margin: 0;
       font-size: calc($fonts * 1.2);
       font-weight: 500;
-      li{
+      .tech-heading{
+        display: block;
         &::after{
           content: '|';
           margin: 0 0.6rem;
@@ -220,20 +228,6 @@ export default {
       }
     }
 }
-.tech{
-  background-color: darken($bg, 20%);
-  height: 12%;
-  width: 100%;
-  overflow-y: hidden;
-    .icon{
-      filter: grayscale(100%);
-      height: 100%;
-      transition: all $trans1 ease-in-out;
-        &:hover{
-          filter: grayscale(0%) !important;
-        }
-    }
-}
 .links{
   display: flex;
   min-height: 15%;
@@ -241,8 +235,7 @@ export default {
 @media screen and ($minmax: $lg){
   .card{
     width: clamp(200px, 90%, 800px);
-    height: 85%;
-    aspect-ratio: 7/9;
+    min-height: 88%;
   }
 }
 
