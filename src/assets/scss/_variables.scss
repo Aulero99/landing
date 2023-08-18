@@ -1,7 +1,6 @@
 @import "../../variables.json";
 
 // Grid Settings
-$gutter: 3rem;
 $minmax: max-width;
 
 // Grid Padding Calculations
@@ -31,7 +30,7 @@ $main3: #000;
 $main4: #000;
 $main5: #000;
 
-$acct1: #ffb289;
+$acct1: lighten($main1, 30%);
 $acct2: #242424;
 $acct3: #000;
 $acct4: #000;
@@ -39,13 +38,7 @@ $acct5: #000;
 
 $danger: #ff4f4f;
 $warning: #000;
-$success: #bdffa3;
-
-// Transition Variables
-$trans1: 150ms;
-$trans2: 275ms;
-$trans3: 500ms;
-$trans4: 700ms;
+$success: $acct1;
 
 
 // Font variables

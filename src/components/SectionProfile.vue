@@ -1,9 +1,8 @@
 <template>
-    <section class="row bg-standard " id="profile">
+    <section class="row bg-primary" id="profile">
         <div class="col-12">
             <div class="content-gateway flex-col justify-center align-center">
-              <div class="profile-intro limit-width fill"
-              :class="{inbounds:inbounds}">
+              <div ref="profile" class="profile-intro limit-width fill">
                 <div class="profile-img">
                   <img src="https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg" alt="">
                 </div>
@@ -32,24 +31,32 @@
 <script>
 import { onMounted, ref } from 'vue'
 import { modals } from '../utils/ModalUtils'
-import { scrollService } from '../services/ScrollService'
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
   export default {
     setup() {
-      let inbounds= ref(false)
+      gsap.registerPlugin(ScrollTrigger);
 
-      function activateScrollEvents(){
-        if(scrollService.inboundsPadTrigger(`profile`)){
-          inbounds.value = true
-        }else{
-          // inbounds.value = false
-        }
-      }
+      const profile = ref(null)
 
       onMounted(()=>{
-        window.addEventListener('scroll', activateScrollEvents);
+        gsap.from(profile.value,{
+          scrollTrigger:{
+            trigger:".profile-intro",
+            id:"profile-intro",
+            markers: true,
+            start:"top 60%",
+            end:"top 20%",
+            scrub: true
+          },
+          opacity: 0,
+          x: "+50"
+        })
       })
+
       return {
-        inbounds,
+        profile,
         openResume(){
            modals.open('resumeModal')
         }
@@ -62,8 +69,6 @@ import { scrollService } from '../services/ScrollService'
 @import "../assets/scss/_variables.scss";
 
 .profile-intro{
-  opacity: 0;
-  transition: all $trans3 ease-in-out;
   display: flex;
   flex-direction: row;
   justify-content: space-around;

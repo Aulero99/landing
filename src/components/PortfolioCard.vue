@@ -1,11 +1,10 @@
 <template>
-  <div class="repo-container fill" :id="repo.name + 'card'">
+  <div ref="container" class="repo-container fill" :id="repo.name + 'card'">
 
     <div class="cover-img">
-      <div class="img-container"
+      <div class="img-container" ref="bgImage"
       :style="{
-        'background-image':'url('+ setImage(repo) +')',
-        'background-position-y': bgBtm + 'rem'
+        'background-image':'url('+ repo.img +')'
         }"
       >
       </div>
@@ -45,61 +44,97 @@ import { onBeforeMount, onMounted, ref } from 'vue'
 import { scrollService } from '../services/ScrollService'
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
-  export default {
-    props:{
-      repo: {type:Object, required:true},
-      index: {type:Number, required:false}
-    },
-    setup(props) {
-      let longest = null
-      let bgBtm = ref(0) 
-      const breakpoint = AppState.breakPoint
-      
-      function getParams(){
-        let h = window.screen.height
-        let w = window.screen.width
-          if(h > w){ 
-            longest = h 
-          }else{
-            longest = w
-          }
-      }
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-      function activateScrollEvents(){
-        if(window.screen.width <= breakpoint){
-          return
-        }
-        if(scrollService.inboundsCheck(`${props.repo.name}card`)){
-          let percent = scrollService.percentBasedOnTop(`${props.repo.name}card`)
-          // logger.log('scroll pos '+ props.repo.name + ':', percent)
-          // const vh = window.innerHeight
-          bgBtm.value = (20 * percent)
-        }
-      }
+export default {
+  props:{
+    repo: {type:Object, required:true},
+    index: {type:Number, required:false}
+  },
+  setup(props) {
+      gsap.registerPlugin(ScrollTrigger);
+      // let longest = null
+      // let bgBtm = ref(0) 
+      const bgImage = ref(null)
+      const container = ref(null)
+      // const breakpoint = AppState.breakPoint
+      
+
+      // gsap.to(`#${props.repo.name}card`,{
+      //   color: "#fff",
+      //   duration: 2
+      // });
+
+
+      // function getParams(){
+      //   let h = window.screen.height
+      //   let w = window.screen.width
+      //     if(h > w){ 
+      //       longest = h 
+      //     }else{
+      //       longest = w
+      //     }
+      // }
+      // function activateScrollEvents(){
+      //   if(window.screen.width <= breakpoint){
+      //     return
+      //   }
+      //   if(scrollService.inboundsCheck(`${props.repo.name}card`)){
+      //     let percent = scrollService.percentBasedOnTop(`${props.repo.name}card`)
+      //     // logger.log('scroll pos '+ props.repo.name + ':', percent)
+      //     // const vh = window.innerHeight
+      //     bgBtm.value = ((AppState.screenY * 0.3) * percent)
+      //   }
+      // }
 
       onMounted(()=>{
-        window.addEventListener('scroll', activateScrollEvents);
-        window.addEventListener('resize', getParams);
+        // window.addEventListener('scroll', activateScrollEvents);
+        // window.addEventListener('resize', getParams);
+        // ScrollTrigger.create({
+        //   trigger:bgImage.value,
+        //   id:`${props.repo.name}card`,
+        //   animation: timeline,
+        //   markers: true,
+        //   start:"top bottom",
+        //   end:"bottom center",
+        // })
+        // gsap.to(bgImage.value,{
+        //   opacity: 0
+        // })
+        gsap.from(bgImage.value,{
+          scrollTrigger:{
+            trigger:container.value,
+            id:`${props.repo.name}`,
+            start:"top bottom",
+            end:"bottom top",
+            scrub: true,
+            delay:1
+          },
+          y: "-60%"
+        })
       })
       onBeforeMount(()=>{
-        getParams();
+        // getParams();
       })
 
       return {
-        bgBtm,
-        longest,
-        setImage(rep){
-          if(longest > 1080){
-            return rep.img
-          }
-          if(longest > 600 && longest <= 1080){
-            return rep.img1080
-          }
-          if(longest > 300 && longest <= 600){
-            return rep.img600
-          }
-          return rep.img300
-        }
+        bgImage,
+        container,
+        // bgBtm,
+        // longest,
+        // setImage(rep){
+        //   if(longest > 1080){
+        //     return rep.img
+        //   }
+        //   if(longest > 600 && longest <= 1080){
+        //     return rep.img1080
+        //   }
+        //   if(longest > 300 && longest <= 600){
+        //     return rep.img600
+        //   }
+        //   return rep.img300
+        // }
       }
     }
   }
@@ -110,7 +145,7 @@ import { logger } from '../utils/Logger'
 
 .repo-container{
   position: relative;
-  height: calc($vh100 + 3rem);
+  height: calc($vh100 * 1.1);
   width: 100%;
 }
 .card-container{
@@ -134,12 +169,12 @@ import { logger } from '../utils/Logger'
   overflow: hidden;
   .img-container{
       position: absolute;
-      top: calc($vh100 * -0.1);
+      top: 0;
       left: calc(-0.05 * $vw100);
       right: calc(-0.05 * $vw100);
       margin-right: auto;
       margin-left: auto;
-      height: calc($vh100 + (0.35 * $vh100) );
+      height: calc($vh100 + (0.45 * $vh100) );
       display: flex;
       flex-direction: row;
       justify-content: center;

@@ -1,7 +1,12 @@
 {
+    "gutter": "3rem",
     "sm":"576px",
     "md":"768px",
     "lg": "1180px",
     "xl": "1300px",
-    "xxl": "1600px"
+    "xxl": "1600px",
+    "trans1": "150ms",
+    "trans2": "275ms",
+    "trans3": "500ms",
+    "trans4": "700ms"
 }

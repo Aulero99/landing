@@ -27,6 +27,8 @@
 import { computed, onMounted } from 'vue';
 import { AppState } from './AppState';
 import { scrollService } from './services/ScrollService';
+import { gsap } from "gsap";
+
 
 export default {
   setup(){

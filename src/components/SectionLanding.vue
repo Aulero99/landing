@@ -1,7 +1,7 @@
 <template>
   <section class="row" id="landing">
-      <div class="col-12 bg-main landing">
-        <LandingAnimation/>
+      <div class="col-12 landing">
+        <LandingAnimation2/>
       </div>
   </section>
 </template>

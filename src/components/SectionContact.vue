@@ -1,82 +1,20 @@
 <template>
-    <section class="row bg-standard" id="contact">
+    <section class="row bg-primary" id="contact">
         <div class="col-12">
           <div class="content-gateway justify-center align-center">
               <ContactForm/>
           </div>
         </div>
-        <div class="col-12 bg-acct2 py-3 flex-row justify-between">
-          <div class="content-gateway align-center copyright">
-            <div class=" limit-width">
-              <div class="container">
-                <div class="row px-3 justify-between">
-  
-                  <div class="col-6 col-lg-6 my-3">
-                    <h4>DESIGN</h4>
-                    <ul>
-                      <li>
-                        Photoshop
-                      </li>
-                      <li>
-                        Illustrator
-                      </li>
-                      <li>
-                        Figma
-                      </li>
-                    </ul>
-                  </div>
-  
-                  <div class="col-6 col-lg-6 my-3">
-                    <h4>PROGRAM</h4>
-                    <ul>
-                      <li>
-                        Visual Studio Code
-                      </li>
-                      <li>
-                        HTML
-                      </li>
-                      <li>
-                        CSS
-                      </li>
-                      <li>
-                        Javascript
-                      </li>
-                      <li>
-                        Scss
-                      </li>
-                      <li>
-                        C#
-                      </li>
-                      <li>
-                        .NET
-                      </li>
-                      <li>
-                        Node.js
-                      </li>
-                      <li>
-                        Vue.js
-                      </li>
-                    </ul>
-                  </div> 
-                  <div class="col-6 col-lg-12 flex-row justify-start align-center py-3">
-                    <img src="../assets/img/logo.svg" alt="logo" class="logo me-3">
-                    © Copyright 2023 Auston Robertson.
-                  </div>
-                  <div class="col-4 col-lg-12 flex-row justify-start justify-md-start align-center py-3">
-                    <a href="https://github.com/Aulero99" target="blank">
-                      <img src="../assets/img/icons/github.png" alt="Github" title="Github" class="social">
-                    </a>
-                    <a href="https://www.linkedin.com/in/auston-robertson-fullstack-dev/" target="blank">
-                      <img src="../assets/img/icons/linkedin.png" alt="LinkedIn" title="LinkedIn" class="social">
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
+      </section>
+
+      <section class="row bg-secondary" id="copyright">
+        <div class="col-12">
+          <div class="content-gateway copyright-height align-center justify-center">
+            <Copyright/>
           </div>
         </div>
-    </section>
-</template>
+      </section>
+  </template>
   
 <script>
   export default {
@@ -90,32 +28,5 @@
 
 <style lang="scss" scoped>
 @import "../assets/scss/_variables.scss";
-
-ul{
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.copyright{
-  min-height: calc(0.2 * $vh100) !important;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: white;
-  img{
-    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(309deg) brightness(104%) contrast(101%);
-  }
-}
-.logo{
-  height: 3rem;
-  // filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(309deg) brightness(104%) contrast(101%);
-}
-.social{
-  height: 2rem;
-  transition: all $trans1 ease-in-out;
-  margin: 0 0.4rem 0 0;
-    &:hover{
-      filter: invert(51%) sepia(98%) saturate(935%) hue-rotate(345deg) brightness(101%) contrast(101%);
-    }
-}
+.copyright-height{ min-height: calc(0.2 * $vh100) !important;}
 </style>

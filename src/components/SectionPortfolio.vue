@@ -1,5 +1,5 @@
 <template>
-    <section class="row" id="portfolio">
+    <section class="row bg-primary" id="portfolio">
         <div class="col-12">
           <div v-for="(r, index) in portfolio" :key="r.name">
             <PortfolioCard :repo="r" :index="index"/>

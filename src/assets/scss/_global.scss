@@ -160,23 +160,18 @@ p{
     font-family: 'Rubik', sans-serif;
 }
 
-.vh-100{ min-height: $vh100; }
-.bg-main{ background-color: $main1;}
-.bg-acct2{ background-color: $acct2;}
-.smooth{
-    // transition: all ease-in-out 10ms;
-}
 .limit-width{
     max-width: 1000px;
 }
-.h-0{
-    max-height: 0;
-    overflow: hidden;
+
+.bg-primary{
+    background-color: $bg;
+    z-index: 100;
 }
 
-.bg-standard{
-    background-color: $bg;
-    z-index: 2;
+.bg-secondary{
+    background-color: $bg2;
+    z-index: 100;
 }
 
 .br-1{ border-radius: $br1; }
