@@ -58,7 +58,6 @@
 <script>
 import { computed, ref } from 'vue'
 import { AppState } from '../AppState'
-// import { logger } from '../utils/Logger'
   export default {
 
     setup() {
@@ -103,7 +102,7 @@ import { AppState } from '../AppState'
 .scroll-element{
     position: absolute;
     left: $navpad;
-    width: calc(100% - (0.06 * $vh100));
+    width: calc(100% - (0.06 * 100vh));
     height: 45%;
     top: 5%; 
     z-index: -1;
@@ -112,6 +111,10 @@ import { AppState } from '../AppState'
         background-color: $main1;
         min-width: 6rem;
       }
+}
+.h-0{
+  height: 0;
+  overflow: hidden;
 }
 .navlink{
     cursor: pointer;
@@ -172,8 +175,9 @@ import { AppState } from '../AppState'
     position: absolute;
     opacity: 0;
     top: 5rem;
-    width: 100%;
-    left: -100%;
+    // min-width: fit-content;
+    width: 15rem;
+    left: -15rem;
     transform: rotate(-90deg);
     transform-origin: top right;
     background-color: $bg;

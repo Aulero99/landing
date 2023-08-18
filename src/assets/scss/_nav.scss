@@ -1,6 +1,6 @@
 nav{
     width: $nav-width;
-    height: $vh100;
+    height: 100vh;
     position: fixed;
     top: 0;
     right: 0;
@@ -12,7 +12,7 @@ nav{
             transform: rotate(90deg);
             transform-origin: left top;
             margin-left: $nav-width;
-            width: $vh100;
+            width: 100vh;
             color: $main2;
             height: $nav-width;
             padding: 0 $navpad;

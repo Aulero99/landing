@@ -1,17 +1,17 @@
 <template>
-    <button :title="ident" class="br-1">
+    <div type="button" :title="ident" class="br-1 button">
         <a :href="link" target="blank" class="fill">
             <div class="background">
                 <svg x="0px" y="0px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" role="img">
                     <polygon class="triangle" points="100,100 0,100 0,0 "/>
                 </svg>
             </div>
-            <div class="foreground">
+            <div class="foreground p-1">
                 <img :src="icon" :alt="ident" v-if="!cta"> 
                 {{ cta }}
             </div>
         </a>
-    </button>
+    </div>
     <!-- NOTE The width must be equal to or greater than the height of the button -->
 </template>
   
@@ -66,19 +66,21 @@ img{ height: 100%; }
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    img{
+        height: 100%;
+    }
 }
-button{
+.button{
     display: block;
     position: relative;
-    padding: 0.5rem;
     border: 0;
     background: transparent;
     z-index: 2;
     overflow: hidden;
-    width: 100%;
+    width: 45%;
     max-width: 10rem;
     aspect-ratio: 2/1;
-    font-size: clamp(1rem, 3vw, 1.75rem);
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
     font-weight: 600;
     box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
     cursor: pointer;
@@ -91,6 +93,7 @@ button{
             align-items: center;
         }
         &::after{
+            user-select: none;
             content: "";
             z-index: -1;
             position: absolute;

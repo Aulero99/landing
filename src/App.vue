@@ -28,20 +28,23 @@ import { computed, onMounted } from 'vue';
 import { AppState } from './AppState';
 import { scrollService } from './services/ScrollService';
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 
 
 export default {
   setup(){
-
+    
+    
     function setParams(){
       const h = window.innerHeight
       const w = window.innerWidth
       AppState.screenX = w
       AppState.screenY = h
       const navPad = 0.03 * h
-
+      
       const root = document.querySelector(':root')
-
+      
       root.style.setProperty('--vp-height', `${h}px`)
       root.style.setProperty('--vp-width', `${w}px`)
       root.style.setProperty('--navpad', `${navPad}px`)
@@ -55,11 +58,16 @@ export default {
         setParams()
       }
     }
-
+    
     onMounted(()=>{
+      gsap.registerPlugin(ScrollTrigger);
       window.addEventListener('scroll', scrollPositionUpdate);
       window.addEventListener('resize', updateParams);
       setParams()
+
+      ScrollTrigger.defaults({
+        // markers:true 
+      })
     })
     
     function scrollPositionUpdate(){

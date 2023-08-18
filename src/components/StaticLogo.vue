@@ -21,10 +21,13 @@
 <script>
 import { computed, onMounted, ref } from 'vue'
 import { AppState } from '../AppState'
+import jsons from '../variables.json'
+import { parser } from '../utils/JSONParser'
   export default {
     setup() {
         const active = ref(false)
-        const breakpoint = AppState.breakPoint
+        const vars = parser.parseAll(jsons)
+        const breakpoint = vars.lg
         
         function closeNav(){ 
             AppState.navOpen = false
@@ -81,7 +84,7 @@ import { AppState } from '../AppState'
     z-index: 999;
         &.nav-open{
             transition: opacity $trans1 ease-in-out;
-            height: $vh100;
+            height: 100vh;
             opacity: 1;
         }
         &.nav-closed{
