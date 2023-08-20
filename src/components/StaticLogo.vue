@@ -3,7 +3,7 @@
     :class="{'nav-open':navOpen}"
     @mouseenter="setActive()"
     @mouseleave="setInactive()"
-    @click="openNav()"
+    @click="openNav(), scrollToContact()"
     >
         <div class="logo-container elevation-3 flex-col justify-center"
         :class="{active:active}">
@@ -62,6 +62,14 @@ import { parser } from '../utils/JSONParser'
                 if(window.screen.width <= breakpoint){
                     AppState.navOpen = false
                     active.value = false 
+                }
+            },
+            scrollToContact(){
+                if(window.screen.width > breakpoint){
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+                    const ap = AppState.activePage
+                    // ap.orig = 'contact'
+                    // ap.dest = 'contact'
                 }
             }
         }

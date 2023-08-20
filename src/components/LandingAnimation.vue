@@ -16,7 +16,7 @@
   </div>
 
   <div 
-  v-if="largerThenBreakpoint"
+  v-if="largerThenBreakpoint()"
   class="layer layer-two d-lg-none"
   :style="{'transform':'translateY(' + (bgBtm * 4) + '%) ' 
   + 'translateX(' + ((50 - (xPos * 100)) * 0.005) + '%)'}"
@@ -75,14 +75,15 @@
 <script>
 import { onMounted, ref } from 'vue'
 import { logger } from '../utils/Logger'
-
+import jsons from '../variables.json'
+import { parser } from '../utils/JSONParser'
 
   export default {
     setup() {
       let bgBtm = ref(0) 
       let xPos = ref(0)
       let yPos = ref(0)
-
+      const variables = parser.parseAll(jsons)
 
       // NOTE this function sets the xPos value between -1 and 1 with 0
       // being the center of the screen, this value can then be used to 
@@ -114,6 +115,7 @@ import { logger } from '../utils/Logger'
       return {
         bgBtm,
         xPos,
+        variables,
         largerThenBreakpoint(){
           const breakPoint = variables.lg
           const width = window.screen.width

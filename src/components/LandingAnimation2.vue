@@ -1,54 +1,31 @@
 <template>
 <div class="landing-container fill">
   <div class="layer layer-one">
-    <div class="one"
-    :style="{'transform':'translateY(' + (bgBtm * -5) + '%) ' 
-    + 'translateX(' + ((50 - (xPos * 100)) * 0.005) + '%)'}"
-    ></div>
-    <div class="two"
-    :style="{'transform':'translateY(' + (bgBtm * -3) + '%) ' 
-    + 'translateX(' + ((50 - (xPos * 100)) * 0.003) + '%)'}"
-    ></div>
-    <div class="three"
-    :style="{'transform':'translateY(' + (bgBtm * -1) + '%) ' 
-    + 'translateX(' + ((50 - (xPos * 100)) * 0.002) + '%)'}"
-    ></div>
+    <div class="one"></div>
+    <div class="two"></div>
+    <div class="three"></div>
   </div>
 
   <div 
-  v-if="largerThenBreakpoint"
-  class="layer layer-two d-lg-none"
-  :style="{'transform':'translateY(' + (bgBtm * 4) + '%) ' 
-  + 'translateX(' + ((50 - (xPos * 100)) * 0.005) + '%)'}"
-  >
-  <div class="one left flex-row justify-center"
-  :style="{'transform':'translateX(' + (bgBtm * -0.5) + '%)'}"
-  >
+  class="layer layer-two d-lg-none">
+  <div class="one left flex-row justify-center">
     <div class="triangle"></div>
   </div>
 
-  <div class="two right flex-row justify-center"
-  :style="{'transform':'translateX(' + (bgBtm * 0.5) + '%)'}"
-  >
+  <div class="two right flex-row justify-center">
     <div class="triangle"></div>
   </div>
   </div>
 
   <div 
-  class="layer layer-three"
-  :style="{'transform':'translateY(' + (bgBtm * 2) + '%) ' 
-  + 'translateX(' + ((50 - (xPos * 100)) * 0.0075) + '%)'}"
-  >
+  class="layer layer-three">
     <div class="one center flex-row justify-center">
       <h1>HELLO</h1>
     </div>
   </div>
   
   <div 
-  class="layer layer-four"
-  :style="{'transform':'translateY(' + (bgBtm * 3) + '%) ' 
-  + 'translateX(' + ((50 - (xPos * 100)) * 0.01) + '%)'}"
-  >
+  class="layer layer-four">
 
     <div class="center one flex-row justify-center">
       <div class="triangle"></div>
@@ -57,10 +34,7 @@
   </div>
 
   <div 
-  class="layer layer-five"
-  :style="{'transform':'translateY(' + (bgBtm * 2) + '%) ' 
-  + 'translateX(' + ((50 - (xPos * 100)) * 0.015) + '%)'}"
-  >
+  class="layer layer-five">
 
     <div class="one">
       <h1>
@@ -83,7 +57,6 @@ import { logger } from '../utils/Logger'
       let xPos = ref(0)
       let yPos = ref(0)
 
-
       // NOTE this function sets the xPos value between -1 and 1 with 0
       // being the center of the screen, this value can then be used to 
       // animate elements on the page. It will also attempt to stop if
@@ -100,10 +73,12 @@ import { logger } from '../utils/Logger'
           const h = window.innerHeight
           const x = e.screenX
           const y = e.screenY
+          const rec = document.getElementById('landing')
           xPos.value = -1 + (2 * (x/w))
-          // yPos.value = -1 + (2 * (y/h))
+          yPos.value = -1 + (2 * (y/h))
           // logger.log(w,h)
-          // logger.log(x,y)
+          logger.log(rec?.getBoundingClientRect())
+          logger.log(x,y)
           // logger.log(xPos.value, yPos.value)
       }
 
@@ -113,17 +88,7 @@ import { logger } from '../utils/Logger'
 
       return {
         bgBtm,
-        xPos,
-        largerThenBreakpoint(){
-          const breakPoint = variables.lg
-          const width = window.screen.width
-          logger.log(width, breakPoint)
-          if (width < breakPoint){
-            return false
-          }else{
-            return true
-          }
-        }
+        xPos
       }
     }
   }
