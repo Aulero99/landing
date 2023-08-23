@@ -55,35 +55,8 @@ import { logger } from '../utils/Logger'
     setup() {
       let bgBtm = ref(0) 
       let xPos = ref(0)
-      let yPos = ref(0)
-
-      // NOTE this function sets the xPos value between -1 and 1 with 0
-      // being the center of the screen, this value can then be used to 
-      // animate elements on the page. It will also attempt to stop if
-      // the device is touch only, but that code may be borked since
-      // I do not have a way to accurately test it ATM
-      function activateMouseEvents(e){
-          const touch = !!('ontouchstart' in window) || (!!('onmsgesturechange' in window) && !!window.navigator.maxTouchPoints);
-          if(touch){
-            xPos.value = 0
-            yPos.value = 0
-            return
-          }
-          const w = window.innerWidth
-          const h = window.innerHeight
-          const x = e.screenX
-          const y = e.screenY
-          const rec = document.getElementById('landing')
-          xPos.value = -1 + (2 * (x/w))
-          yPos.value = -1 + (2 * (y/h))
-          // logger.log(w,h)
-          logger.log(rec?.getBoundingClientRect())
-          logger.log(x,y)
-          // logger.log(xPos.value, yPos.value)
-      }
 
       onMounted(()=>{
-        window.addEventListener('mousemove', activateMouseEvents);
       })
 
       return {
