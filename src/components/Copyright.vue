@@ -8,7 +8,6 @@
 </template>
 
 <script>
-  import vars from '../variables.json'
   export default {
     setup() {
       const year = new Date().getFullYear()
